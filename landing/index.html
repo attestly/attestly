@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Open verification infrastructure for EU AI Act Article 12 evidence. Drop-in tamper-evident audit log + regulator-runnable verifier for high-risk AI systems." />
+  <title>Attestly — open verification infrastructure for EU AI Act Article 12</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A202C'/%3E%3Cpath d='M8 16l5 5 11-11' stroke='%2363B3ED' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+      background: #0F1014;
+      color: #E8E8EC;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #63B3ED; text-decoration: none; transition: color 120ms; }
+    a:hover { color: #90CDF4; }
+    code, pre { font-family: "JetBrains Mono", "IBM Plex Mono", Consolas, monospace; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============ Header ============ */
+    header {
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+    .logo-mark {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      background: #1A202C;
+      border-radius: 5px;
+      vertical-align: middle;
+      margin-right: 8px;
+      position: relative;
+    }
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 2px solid #63B3ED;
+      border-right: none;
+      border-top: none;
+      border-radius: 0 0 0 4px;
+      transform: rotate(-45deg);
+      transform-origin: center;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+    }
+    .nav-links a { color: #A0AEC0; }
+    .nav-links a:hover { color: #fff; }
+
+    /* ============ Hero ============ */
+    .hero {
+      padding: 88px 0 56px 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      max-width: 760px;
+      margin: 0 auto 24px;
+    }
+    .hero h1 span { color: #63B3ED; }
+    .hero .tagline {
+      color: #A0AEC0;
+      font-size: clamp(16px, 2vw, 20px);
+      max-width: 620px;
+      margin: 0 auto 32px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 150ms;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: #63B3ED;
+      color: #0F1014;
+    }
+    .btn-primary:hover { background: #90CDF4; color: #0F1014; }
+    .btn-secondary {
+      background: transparent;
+      color: #E8E8EC;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .btn-secondary:hover { border-color: #63B3ED; color: #fff; }
+    .deadline-banner {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: rgba(99, 179, 237, 0.10);
+      border: 1px solid rgba(99, 179, 237, 0.3);
+      border-radius: 100px;
+      font-size: 13px;
+      color: #90CDF4;
+    }
+
+    /* ============ Demo ============ */
+    .demo {
+      padding: 32px 0 88px 0;
+    }
+    .demo-frame {
+      max-width: 880px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #0a0b0e;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    .demo-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .demo-caption {
+      text-align: center;
+      color: #718096;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    /* ============ Three primitives ============ */
+    .primitives {
+      padding: 56px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #A0AEC0;
+      margin-bottom: 48px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .card-num {
+      font-size: 12px;
+      color: #63B3ED;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    .card p { color: #A0AEC0; font-size: 14.5px; }
+
+    /* ============ Why now ============ */
+    .why-now {
+      padding: 64px 0;
+      background: rgba(99, 179, 237, 0.04);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .why-now-content {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .why-now h2 {
+      color: #fff;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    .why-now p { color: #CBD5E0; margin-bottom: 16px; }
+
+    /* ============ Quickstart ============ */
+    .quickstart {
+      padding: 64px 0;
+    }
+    .code-block {
+      background: #0a0b0e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 24px auto;
+      max-width: 680px;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    .code-block .comment { color: #718096; }
+    .code-block .keyword { color: #63B3ED; }
+
+    /* ============ Footer ============ */
+    footer {
+      padding: 48px 0 64px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: #718096;
+      font-size: 14px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .footer-col h4 {
+      color: #E8E8EC;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .footer-col a {
+      display: block;
+      color: #A0AEC0;
+      padding: 4px 0;
+      font-size: 14px;
+    }
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+      color: #4A5568;
+      font-size: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo"><span class="logo-mark"></span>Attestly</div>
+      <nav class="nav-links">
+        <a href="#demo">Demo</a>
+        <a href="#what">What it does</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="https://github.com/attestly/attestly">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Open verification infrastructure for <span>EU AI Act Article 12</span> evidence</h1>
+      <p class="tagline">A drop-in tamper-evident audit log + regulator-runnable verifier for any high-risk AI system. Public cryptographic commitments. Private decision payloads. GDPR-compatible by construction.</p>
+      <div class="cta-row">
+        <a href="https://github.com/attestly/attestly" class="btn btn-primary">View on GitHub</a>
+        <a href="#demo" class="btn btn-secondary">Watch the 27-second demo</a>
+      </div>
+      <div class="deadline-banner">EU AI Act Article 12 enforceable from 2 August 2026 · €15M / 3% global turnover penalties</div>
+    </div>
+  </section>
+
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="demo-frame">
+        <img src="./attestly-demo.gif" alt="27-second screencast: Attestly demo running. Initialise a ledger, append 50 synthetic credit decisions, publish a signed checkpoint, export a regulator evidence bundle, verify it (PASS), then watch the operator tamper with the database — and the verifier catch it (FAIL TAMPERED, with hash mismatch reported)." />
+      </div>
+      <p class="demo-caption">Real cryptographic tamper detection, end-to-end, in 27 seconds.</p>
+    </div>
+  </section>
+
+  <section class="primitives" id="what">
+    <div class="container">
+      <h2 class="section-title">Three primitives. One drop-in library.</h2>
+      <p class="section-subtitle">Apache-2.0 in perpetuity. No commercial dependency. No vendor lock-in.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-num">01 · LEDGER</div>
+          <h3>Append-only signed events</h3>
+          <p>Every AI decision is canonically hashed, signed with the system's Ed25519 key, and appended to a hash-chained ledger. Database triggers enforce append-only at the SQL layer.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">02 · COMMITMENT</div>
+          <h3>Public Signed Tree Heads</h3>
+          <p>Merkle roots are published to a transparency log as signed commitments — never the decision payloads themselves. The architectural pattern is Certificate Transparency.</p>
+        </div>
+        <div class="card">
+          <div class="card-num">03 · VERIFIER</div>
+          <h3>Regulator-runnable, no operator trust</h3>
+          <p>A standalone CLI + browser-WASM verifier. A regulator drops an exported evidence bundle into the tool — and mathematically detects any post-publication tampering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-now">
+    <div class="container">
+      <div class="why-now-content">
+        <h2>Article 12 mandates logging. It does not mandate that the logs can be trusted.</h2>
+        <p>From 2 August 2026, every high-risk AI system in the EU (credit scoring, hiring, biometric, employment, essential services, law enforcement, migration, justice — Annex III) must maintain automatic logs over its lifecycle. The regulatory framework has no technical assurance layer for evidence integrity.</p>
+        <p>Attestly is that layer, published as open digital base infrastructure — not a SaaS product, not a vendor stack.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quickstart" id="quickstart">
+    <div class="container">
+      <h2 class="section-title">Five minutes to a working demo</h2>
+      <p class="section-subtitle">Rust 1.85+ required. SQLite bundled. No other dependencies.</p>
+      <pre class="code-block"><span class="comment"># Clone and build</span>
+git clone https://github.com/attestly/attestly
+cd attestly
+cargo build --release
+
+<span class="comment"># Run the end-to-end demo (bash)</span>
+bash examples/demo.sh
+
+<span class="comment"># …or PowerShell on Windows</span>
+pwsh examples/demo.ps1
+
+<span class="comment"># …or render the screencast yourself</span>
+python examples/render_demo.py</pre>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Project</h4>
+          <a href="https://github.com/attestly/attestly">GitHub repository</a>
+          <a href="https://github.com/attestly/attestly/blob/main/SPRINT-PLAN.md">Sprint plan</a>
+          <a href="https://github.com/attestly/attestly/blob/main/README.md">Documentation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Specifications</h4>
+          <a href="#">Decision Schema v0.1</a>
+          <a href="#">Checkpoint Format v0.1</a>
+          <a href="#">Verifier Protocol v0.1</a>
+        </div>
+        <div class="footer-col">
+          <h4>Compliance</h4>
+          <a href="https://artificialintelligenceact.eu/article/12/">EU AI Act Article 12</a>
+          <a href="#">Article 12 mapping doc</a>
+          <a href="#">GDPR posture</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Apache-2.0 (code) · CC-BY-4.0 (specifications) · Funded in part by the Sovereign Tech Fund (application pending) · Built in Lisbon, Portugal
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

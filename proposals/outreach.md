@@ -70,33 +70,45 @@ Co-founder, Conforme
 
 ---
 
-## 2. Fraunhofer SIT — academic support
+## 2. Fraunhofer IAIS — academic support
 
-**Why this one matters**: Fraunhofer SIT is the most respected EU institute on AI accountability and secure information systems. A letter from them moves both STF and EIC evaluators. Even an interest-but-no-letter response is useful — it lets us credibly cite them as "in conversation."
+> **Redirected from SIT to IAIS based on 2026-05-23 research**: Fraunhofer
+> IAIS (Intelligent Analysis and Information Systems, Sankt Augustin/Bonn)
+> is the Fraunhofer institute actually leading AI Act work — they run the
+> Certified AI project, publish the AI Assessment Catalog, and offer the
+> "Certified Data Scientist Specialized in the EU AI Act" programme. SIT
+> (Secure Information Technology) is more focused on classical infosec.
+> IAIS is the right address for this project.
 
-**How to reach them**: their public contact is `info@sit.fraunhofer.de`. Better path is direct outreach to a named researcher. Look up the head of the "Center for Responsible AI" or the AI accountability working group on `https://www.sit.fraunhofer.de/en/`. LinkedIn is also viable.
+**Why this one matters**: Fraunhofer IAIS is the leading EU research institute on AI accountability and AI Act compliance. A letter from them moves both STF and EIC evaluators significantly. Even an interest-but-no-letter response is useful — it lets us credibly cite them as "in conversation."
 
-**Suggested named target**: search "Fraunhofer SIT AI accountability" or "Fraunhofer SIT Article 12" on Google Scholar — pick the lead author of the most recent 2025/2026 paper. Direct emails to a recent publication's first author have a much higher response rate than generic addresses.
+**Suggested named contact**: **Fabian Malms**, Project Lead for Trustworthy AI / Certified AI at Fraunhofer IAIS, Bonn. LinkedIn: https://www.linkedin.com/in/fabianmalms/. Fabian directly leads the AI Act certification track — exactly our target audience.
+
+**Fallback contact**: **Dr. Dirk Hecker**, Deputy Director of Fraunhofer IAIS (Sankt Augustin). Higher-level introduction; useful if Fabian doesn't respond directly.
+
+**How to reach**: LinkedIn DM to Fabian first (higher response rate for project-level engagement than the generic `info@iais.fraunhofer.de`). If no reply within 3 days, follow up via the IAIS Trustworthy AI team page (https://www.iais.fraunhofer.de/en/) which lists named team members.
 
 ---
 
 ```
-Subject: Open verification infrastructure for EU AI Act Article 12 — request for input from Fraunhofer SIT
+Subject: Open verification infrastructure for EU AI Act Article 12 — request for input from Fraunhofer IAIS
 
-Dear Dr. {{Surname}},
+Dear Fabian,
 
 I am building Attestly, an open-source verification layer for EU AI Act
-Article 12 audit evidence. I am writing to request your input on the
-work, and — if it aligns with your priorities — your institute's support
-for our Sovereign Tech Fund and EIC Accelerator applications.
+Article 12 audit evidence, and I am writing because IAIS's work on the
+AI Assessment Catalog and the Certified AI programme makes you the
+single most natural reviewer of the project's positioning.
 
-The problem we are addressing is well-known to your research group:
-Article 12 mandates automatic logging by high-risk AI systems but is
-silent on log integrity. From 2 August 2026 every Annex III system in
-the EU is obliged to maintain audit logs, but no off-the-shelf tooling
-today produces logs whose integrity a regulator can verify
-independently of the operator. The result is a regulatory framework
-without a corresponding technical assurance layer.
+The problem we are addressing is well-known to your team: Article 12
+mandates automatic logging by high-risk AI systems but is silent on
+log integrity. From 2 August 2026 every Annex III system in the EU is
+obliged to maintain audit logs, but no off-the-shelf tooling today
+produces logs whose integrity a regulator can verify independently of
+the operator. The result is a regulatory framework without a
+corresponding technical assurance layer — exactly the gap your
+Certified AI programme cannot fully close at the certification stage
+because it concerns runtime evidence.
 
 Attestly closes the gap with a small, framework-agnostic Rust library
 that records AI decisions in a tamper-evident append-only ledger,
@@ -114,10 +126,13 @@ I would value:
   (a) your reaction to the technical approach — particularly the choice
       to layer on did:web identity + CloudEvents v1.0 envelope rather
       than inventing a new schema;
-  (b) if SIT's roadmap is compatible, a brief letter of support naming
-      Fraunhofer SIT as an interested academic collaborator. Even a
+  (b) if IAIS's roadmap is compatible, a brief letter of support naming
+      Fraunhofer IAIS as an interested academic collaborator. Even a
       formal "we have read this and consider the direction credible"
       would carry weight with the funders.
+  (c) any pointers to your Certified AI programme's runtime-evidence
+      thinking — we suspect there is significant alignment between
+      that work and Attestly's evidence-pack pattern.
 
 I expect to submit the STF and EIC applications on 31 May. A reply by
 30 May would be ideal but a later one still has value — both funders
@@ -134,20 +149,24 @@ github.com/attestly/attestly
 
 ---
 
-## 3. INESC TEC — Portuguese academic anchor
+## 3. INESC TEC HASLab — Portuguese academic anchor
 
 **Why**: Portugal-resident academic affiliation strengthens the ANI Voucher Deep Tech case (PT national funding) and the EIC's "EU strategic interest" framing.
 
-**How to reach**: `https://www.inesctec.pt/en/`. Likely contact group: HASLab (the High-Assurance Software Lab in Braga) or CRACS (Center for Research in Advanced Computing Systems in Porto). HASLab specifically does verified systems + cryptography — a clean fit.
+**Suggested named contact**: **Bernardo Portela** — HASLab Director and INESC TEC board member. Research areas: Cryptography, Multi-party Computation, Trusted Hardware, Provable Security. An almost-exact fit for Attestly's primitives (Ed25519 + Merkle + transparency log).
 
-**Suggested approach**: identify a HASLab researcher publishing on verifiable computing, applied cryptography, or transparency systems. Email them in English (most HASLab researchers publish in English and respond in English; Portuguese is fine if you prefer).
+**Email**: `bfportela@fc.up.pt` (verified format from his HASLab profile at https://haslab.uminho.pt/bfportela/). The `fc.up.pt` domain is FCUP — Faculty of Sciences, University of Porto.
+
+**Fallback contacts**: **Manuel Barbosa** (HASLab cryptography lead, same research group, IBM Portugal Scientific Prize winner) — also at HASLab/FCUP, email pattern `mbb@fc.up.pt` likely. Either Bernardo or Manuel would carry weight.
+
+**Tone**: English is preferred for technical clarity (HASLab publishes in English at top venues like CCS), but a short Portuguese greeting at the top signals cultural fluency. The email below uses the latter approach.
 
 ---
 
 ```
 Subject: Open verification infrastructure for EU AI Act Article 12 — collaboration interest from a Portugal-based developer
 
-Caro/a Dr/a. {{Surname}},
+Caro Dr. Portela,
 
 Permita-me apresentar-me em inglês para clareza técnica.
 
@@ -157,14 +176,17 @@ evidence. I have a working PoC in Rust (20 tests passing, full
 tamper-detection demo) and am in the final week of preparing
 applications to the Sovereign Tech Fund and the EIC Accelerator.
 
-The technical core is at HASLab's intersection: an append-only signed
-event ledger, Merkle-rooted commitments published to a public log,
-Ed25519 signing throughout, did:web identity for the operator
-organisation, and a separate verifier crate that operates with no
-database dependency — what a regulator would run locally to
-independently check an exported evidence bundle. The architecture is
-deliberately Certificate Transparency applied to AI decisions: public
-commitments, private payloads, GDPR-compatible by construction.
+The technical core sits squarely in HASLab's Cryptography &
+Information Security area: an append-only signed event ledger,
+Merkle-rooted commitments published to a public log, Ed25519 signing
+throughout, did:web identity for the operator organisation, and a
+separate verifier crate that operates with no database dependency —
+what a regulator would run locally to independently check an exported
+evidence bundle. The architecture is deliberately Certificate
+Transparency applied to AI decisions: public commitments, private
+payloads, GDPR-compatible by construction. Your work on provable
+security and trusted hardware is part of why HASLab is the natural
+academic anchor for this project.
 
 A 27-second screencast of the tamper-detection demo is at {{demo
 url}}; the repository is github.com/attestly/attestly; the Sovereign
