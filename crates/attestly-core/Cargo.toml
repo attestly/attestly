@@ -1,0 +1,25 @@
+[package]
+name = "attestly-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Open verification infrastructure for EU AI Act Article 12 evidence — core library."
+
+[dependencies]
+ed25519-dalek = { workspace = true }
+sha2 = { workspace = true }
+rs_merkle = { workspace = true }
+rand = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+base64 = { workspace = true }
+hex = { workspace = true }
+uuid = { workspace = true }
+time = { workspace = true }
+rusqlite = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"

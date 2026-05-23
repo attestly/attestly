@@ -1,0 +1,17 @@
+/target
+**/*.rs.bk
+Cargo.lock.bak
+.idea/
+.vscode/
+*.swp
+
+# demo artefacts
+/demo-out/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+regulator-*.zip
+checkpoint-*.json
+attestly-*.key
+attestly-*.pub

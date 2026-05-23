@@ -1,0 +1,29 @@
+[package]
+name = "attestly-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Attestly command-line tool — append, publish, export, verify."
+
+[[bin]]
+name = "attestly"
+path = "src/main.rs"
+
+[dependencies]
+attestly-core = { path = "../attestly-core" }
+attestly-verifier = { path = "../attestly-verifier" }
+clap = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+zip = { workspace = true }
+hex = { workspace = true }
+base64 = { workspace = true }
+time = { workspace = true }
+# Used only by the `demo-tamper` subcommand which deliberately bypasses
+# the append-only trigger to simulate an adversarial operator.
+rusqlite = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"
