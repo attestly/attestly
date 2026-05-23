@@ -59,17 +59,22 @@ Five blockers + two account creations. ~90 min total.
 
 ---
 
-## Knocked off by Claude over the weekend
+## Knocked off by Claude over the weekend ✅ ALL DONE
 
-(Updated as items complete — see commit log + file timestamps for the audit trail.)
+- [x] **[DONE]** Save this to-do list as `TODO-MONDAY.md` — file in project root
+- [x] **[DONE]** Conforme letter of support — `proposals/conforme-letter.html` (open in browser, print to PDF) + `proposals/conforme-letter.md` (paste into Google Docs); both have `{{andy_email}}` + `{{andy_phone}}` placeholders for Andy to fill
+- [x] **[DONE]** Research named contacts at Fraunhofer + INESC TEC — `proposals/outreach.md` updated:
+  - Fraunhofer SIT redirected to **Fraunhofer IAIS** (Sankt Augustin/Bonn) — the institute actually running EU AI Act work
+  - Named contact: **Fabian Malms**, Project Lead Trustworthy AI / Certified AI, IAIS Bonn (LinkedIn link in template)
+  - INESC TEC named contact: **Bernardo Portela**, HASLab Director, email `bfportela@fc.up.pt` (verified format from his HASLab profile)
+- [x] **[DONE]** Verify PyPI + npm namespace — all clean, see `pre-flight-saturday.md` for verification log + fallback names if any get squatted before Saturday
+- [x] **[DONE]** Initialise local git repo — `git init` on `main` branch, initial commit `34bb4a5` + weekend prep commit `41ffe98`. Saturday push is: `git remote add origin git@github.com:attestly/attestly.git && git push -u origin main`
+- [x] **[DONE]** EIC Step 1 pitch deck content — `proposals/eic-pitch-deck.md`, 10 slides ready to paste into Google Slides (~30-45min of layout work)
+- [x] **[DONE]** Landing page — `landing/index.html` (single self-contained file, 1 KB CSS inline) + `landing/attestly-demo.gif` embedded. Deploy guide in `landing/README.md` (Cloudflare Pages: drag the folder, done in ~5 min once the domain is registered)
 
-- [ ] **[CLAUDE]** Save this to-do list as `TODO-MONDAY.md` *(in flight)*
-- [ ] **[CLAUDE]** Generate Conforme letter of support as paste-ready HTML/PDF
-- [ ] **[CLAUDE]** Research named contacts at Fraunhofer SIT + INESC TEC; update outreach templates
-- [ ] **[CLAUDE]** Verify PyPI + npm namespace still clean; document fallback names if not
-- [ ] **[CLAUDE]** Initialise local git repo so Saturday push is `git push -u origin main`
-- [ ] **[CLAUDE]** Build EIC Step 1 pitch deck content (markdown for Google Slides paste)
-- [ ] **[CLAUDE]** Build attestly.dev landing page draft (single static HTML, deploys to Cloudflare Pages)
+**Bonus item also done:**
+
+- [x] **[DONE]** Founder CV template — `proposals/founder-cv-template.md`. Fill the bracketed placeholders with your real career history. Includes reviewer-side guidance per Andy's feedback (don't fabricate, lean into entrepreneurial authenticity, quantified achievements per role).
 
 ---
 
