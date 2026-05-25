@@ -21,9 +21,9 @@ A few specifics that might be relevant:
 
 A 27-second screencast demonstrating the full tamper-detection pipeline is at https://attestly.org. The end-to-end demo is reproducible by any reviewer in about five minutes from the public repository.
 
-I'm not asking for a partnership commitment. What I'd value, if it's possible, is a 30-minute conversation with whoever on your team thinks about long-term technical architecture for eyeWitness. The conversation might lead nowhere, and that's fine; I'd rather hear an honest critique of the approach now than build further without testing it against the people whose threat model has been thought through most carefully.
+I'm not asking for a partnership commitment. What I'd value, if it's possible, is an honest written critique from whoever on your team thinks about long-term technical architecture for eyeWitness — a short reply by email, no matter how brief, would be much more useful than building further without testing the approach against the people whose threat model has been thought through most carefully.
 
-If easier, I'm also happy to send a longer technical brief in writing for asynchronous review. Whatever fits your team's workflow.
+I work entirely async and would prefer to keep this exchange to email; happy to send a longer technical brief in writing if it's useful for review.
 
 Thank you for the work you do. Whatever the outcome of this exchange, the public verifier and the open Decision Schema specification will remain Apache-2.0 / CC-BY-4.0 in perpetuity and free for any organisation to adopt.
 

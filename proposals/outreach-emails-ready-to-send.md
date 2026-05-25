@@ -29,7 +29,7 @@ I'm preparing a submission to the ESA BASS Kick-Start round, cut-off 28 August. 
 
 The project: my company **Conforme** (https://conforme.info) is a live PT-based SaaS for short-term-rental compliance. The Kick-Start proposal integrates Copernicus Sentinel imagery and complementary EO data into the product, for address verification and occupancy-pattern detection across the c. 47,000 registered RNAL properties. €100k total (€75k ESA / €25k Conforme co-financing).
 
-Could you let me know the current process and expected timeline for the letter, and whether you'd prefer a written technical brief or a meeting first? I can come to your offices in Lisbon, or send the draft Kick-Start proposal directly — whichever fits your workflow.
+Could you let me know the current process and expected timeline for the letter, and whether you'd like a written technical brief in advance? I can send the draft Kick-Start proposal in full, or a shorter one-page summary first — whichever you prefer.
 
 Com os melhores cumprimentos,
 
@@ -59,9 +59,9 @@ The ask: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k
 Two short questions:
 
 - Is INESC TEC currently on IAPMEI's accredited research-entity list?
-- Would CTIC be open to a short call to see if the scope is something one of your researchers would want to take on?
+- Would CTIC be open to taking this further by email — happy to send the full scope and technical brief for review?
 
-Happy to share the repo, the draft Kick-Start scope, and a short technical brief. I'm based in Lisbon, comfortable coming to Porto.
+Happy to share the repo, the draft scope, and a short technical brief by email. I work async; no need to set anything up by call or in person.
 
 Best,
 
@@ -92,7 +92,7 @@ Two short questions:
 - Is Católica CRC on IAPMEI's accredited research-entity list?
 - Would this kind of small applied research engagement fit your group's interests?
 
-Glad to send the technical context, the draft application scope, and meet in Lisbon when convenient.
+Glad to send the technical context and the draft application scope by email — I prefer to keep this exchange async if it works for you.
 
 Cumprimentos,
 
@@ -120,9 +120,9 @@ There's a small budget for it: I'm preparing an IAPMEI Vale Inovação Simplific
 Two questions:
 
 - Is IT on IAPMEI's accredited research-entity list?
-- Would a short scoping call make sense to see if this is something the group would take on?
+- Would the group be open to taking this further by email — I can send the full scope and the draft technical note for review?
 
-Repo, draft Kick-Start scope, and technical note all available to share.
+Repo, draft scope, and technical note all available to share by email. I work async, no calls or meetings needed.
 
 Thanks,
 
