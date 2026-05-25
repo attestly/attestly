@@ -4,6 +4,7 @@ members = [
     "crates/attestly-core",
     "crates/attestly-cli",
     "crates/attestly-verifier",
+    "crates/attestly-tella",
 ]
 
 [workspace.package]
