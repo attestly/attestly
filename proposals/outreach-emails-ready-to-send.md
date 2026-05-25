@@ -17,8 +17,8 @@ Each email aims for: who I am · one-line project · why you specifically · ask
 
 ## 1. Portugal Space — ESA BASS letter of authorisation
 
-**To**: `info@portugalspace.pt`  
-**Cc** (optional): named ESA BASS delegate at portugalspace.pt/cooperacao-internacional/esa — verify before sending  
+**To**: `hugo.costa@ptspace.pt` (Hugo André Costa, Executive Director — signed off PT's €204.8M ESA Ministerial 2025 subscription; signs ESA programme authorisations)  
+**Cc**: `secretariado@ptspace.pt` (routing to the BASS desk)  
 **Subject**: ESA BASS Kick-Start (28 Aug cut-off) — letter of authorisation
 
 ---
@@ -44,22 +44,22 @@ https://conforme.info
 
 ## 2. INESC TEC — IAPMEI Vale Inovação partner inquiry
 
-**To**: head of the Centre for Information and Cyber Security (CTIC) at INESC TEC — find current head via https://www.inesctec.pt/en/centres/ctic and use their direct address  
-**Cc** (optional): `comunicacao@inesctec.pt` (general inquiries) as fallback  
+**To**: `manuel.e.correia@inesctec.pt` (Manuel Eduardo Correia, Senior Researcher CRACS / Associate Professor FCUP — published on identity management, eID, anonymisation; consultant to PT public agencies on computer security)  
+**Cc**: `rolando.martins@inesctec.pt` (Rolando Martins, CRACS — 2021 paper on hardening cryptographic operations through secure enclaves; closest direct match to Ed25519/Merkle/transparency-log review work)  
 **Subject**: Small applied R&D engagement — open-source Rust transparency-log library
 
 ---
 
 Hi,
 
-I'm a Portuguese founder working on an open-source Rust library called **Attestly** — it implements a Certificate-Transparency-style public log for AI Act Article 12 audit evidence. Working v0.1 is at github.com/attestly/attestly. I'm reaching out specifically because CTIC's protocol-analysis and applied-cryptography work seems like a strong fit for the scope I have in mind.
+I'm a Portuguese founder working on an open-source Rust library called **Attestly** — it implements a Certificate-Transparency-style public log for AI Act Article 12 audit evidence. Working v0.1 is at github.com/attestly/attestly. I'm reaching out specifically because your applied-cryptography and identity-management work at CRACS seems like a strong fit for the scope I have in mind.
 
 The ask: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) for an **independent cryptographic review** of Attestly's canonical-hashing approach, Signed Tree Head format, and Decision Schema spec. I want an independent review before I freeze the spec publicly and start putting it in front of grant reviewers and partners.
 
 Two short questions:
 
 - Is INESC TEC currently on IAPMEI's accredited research-entity list?
-- Would CTIC be open to taking this further by email — happy to send the full scope and technical brief for review?
+- Would CRACS be open to taking this further by email — happy to send the full scope and technical brief for review?
 
 Happy to share the repo, the draft scope, and a short technical brief by email. I work async; no need to set anything up by call or in person.
 
@@ -73,15 +73,15 @@ github.com/attestly/attestly
 
 ## 3. Católica-Lisbon CRC — IAPMEI Vale Inovação partner inquiry
 
-**To**: identify a Católica CRC researcher working on internet governance, regulatory compliance, or digital-evidence law via https://www.fch.lisboa.ucp.pt — Cc them directly  
-**Cc** (optional): `info@research.lisbon.ucp.pt` (general inquiries) as fallback  
+**To**: `gdegregorio@ucp.pt` (Giovanni De Gregorio, PLMJ Chair in Law and Technology; Vice Dean for Research, Católica Global School of Law — active 2025-2026 on EU AI Act, DSA, digital constitutionalism)  
+**Cc**: `hsantunes@ucp.pt` (Henrique Sousa Antunes, coordinator of "Law and Artificial Intelligence" working group at Católica Research Centre for the Future of Law; pattern email — verify before sending if you can)  
 **Subject**: Question about cryptographic-evidence law under eIDAS 2 and the AI Act
 
 ---
 
-Dear [researcher name],
+Dear Professor De Gregorio,
 
-I'm reaching out because I'm working on a small applied research question at the intersection of the AI Act and eIDAS 2, and Católica CRC seemed like one of the few places in Portugal where it might be a real fit.
+I'm reaching out because I'm working on a small applied research question at the intersection of the AI Act and eIDAS 2, and Católica Global School of Law seemed like one of the few places in Portugal where it might be a real fit.
 
 A short context: I'm a Lisbon-based founder building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger eIDAS 2 Article 45l recognises, designed to help satisfy AI Act Article 12 audit-log requirements at the same time. I haven't yet seen much analysis of how those two regimes fit together in practice.
 
@@ -89,7 +89,7 @@ I'm preparing a small IAPMEI Vale Inovação Simplificado application (€5k–�
 
 Two short questions:
 
-- Is Católica CRC on IAPMEI's accredited research-entity list?
+- Is Católica on IAPMEI's accredited research-entity list?
 - Would this kind of small applied research engagement fit your group's interests?
 
 Glad to send the technical context and the draft application scope by email — I prefer to keep this exchange async if it works for you.
@@ -103,8 +103,8 @@ hello@attestly.org · https://attestly.org
 
 ## 4. IT Aveiro — IAPMEI Vale Inovação partner inquiry
 
-**To**: head of the Security and Cryptography group at IT Aveiro — find via https://www.it.pt and use their direct address  
-**Cc** (optional): `secretariado@it.pt` (general secretariat) as fallback  
+**To**: `anp@ua.pt` (Armando Nolasco Pinto, Associate Professor UA/DETI; leader of the OQCT-Av group at IT-Aveiro; PI on QSCAN / QuantumPrime)  
+**Cc**: `jpbarraca@ua.pt` (João Paulo Barraca, IT-Av ATNoG senior researcher; currently Director of UA Cybersecurity Office through Feb 2026 — institutional gatekeeper for cybersec collaborations; pattern email)  
 **Subject**: Independent cryptographic review for an open-source Rust library — IAPMEI Vale Inovação
 
 ---
@@ -115,7 +115,7 @@ Quick context: I've shipped v0.1 of an open-source Rust library called **Attestl
 
 The scope: SHA-256 canonical-hashing approach (currently a domain-separated JSON encoding, considering migration to RFC 8785 JCS), Ed25519 signature patterns, Merkle tree and Signed Tree Head format, plus a forward look at the PQC migration story. I'm using well-understood primitives, but I want an external review of the composition before I widen distribution.
 
-There's a small budget for it: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November). IT Aveiro's Security and Cryptography group is a natural fit; your work on PQC migration in particular is directly relevant.
+There's a small budget for it: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November). Your group's work at IT-Aveiro on quantum-secure and classical cryptography looks like a natural fit, particularly given the PQ-migration angle.
 
 Two questions:
 

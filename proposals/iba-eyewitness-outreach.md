@@ -1,13 +1,13 @@
 # Outreach letter — International Bar Association, eyeWitness to Atrocities team
 
-**Recipient**: eyeWitness to Atrocities team (International Bar Association)
-**Routing options**: info@eyewitness.global · partnerships@int-bar.org · contact form at eyewitness.global/contact-us
+**Recipient**: Carrie Bowker, Director, eyeWitness to Atrocities (International Bar Association)
+**Routing**: `general@eyewitness.global` with subject line including "FAO Carrie Bowker, Director"; Cc `techsupport@eyewitness.global`. eyeWitness publishes no individual staff emails — only four functional inboxes — so the FAO subject line is how it routes internally.
 **From**: Curtis (Attestly), curtis@attestly.org
-**Subject**: Public-anchor cryptographic integrity layer — open-source primitive for eyeWitness v2 consideration
+**Subject**: FAO Carrie Bowker, Director — open-source public-anchor primitive for eyeWitness v2 consideration
 
 ---
 
-Dear eyeWitness team,
+Dear Ms Bowker,
 
 I'm writing to introduce **Attestly** — an open-source Rust library and verifier protocol that publishes append-only Merkle-rooted Signed Tree Heads to a public transparency log for cryptographic evidence integrity. It's permissively licensed (Apache-2.0) and designed as a framework-agnostic primitive that any capture tool can adopt without commercial dependency. The project page is at https://attestly.org and the working code is at github.com/attestly/attestly.
 
@@ -37,8 +37,9 @@ curtis@attestly.org · https://attestly.org · github.com/attestly/attestly
 
 ## Send notes (for Curtis when actually sending)
 
-- **Best initial routing**: send to `info@eyewitness.global` with `partnerships@int-bar.org` BCC.
-- **Best alternative**: contact form at https://www.eyewitness.global/contact-us, paste this text in the message body.
-- **Followup**: if no response within 3 weeks, a single polite nudge through LinkedIn outreach to the eyeWitness Programme Manager (Wendy Betts has historically been the public-facing lead; verify current role before contact).
+- **Best initial routing**: send to `general@eyewitness.global` with `techsupport@eyewitness.global` Cc'd. Subject line must include "FAO Carrie Bowker, Director" — eyeWitness publishes no individual staff emails, only functional inboxes, so the FAO is how the message reaches the right desk.
+- **Do not address Wendy Betts** — she previously led eyeWitness but Carrie Bowker is the current Director as of the 2025-2026 eyewitness.global staff page. Verified by the IBA's own ten-year anniversary piece.
+- **Alternative routing**: contact form at https://www.eyewitness.global/connect, paste this text in the message body and tag Carrie Bowker in the subject.
+- **Followup**: if no response within 3 weeks, a single polite nudge to Isabelle Bienfait (Programme Co-ordinator, joined 2024) via the same `general@` inbox FAO her by name.
 - **Do not** send before the Attestly v0.1 demo is publicly viewable at attestly.org and the GitHub repo is public — both prerequisites are now met as of 2026-05-25.
 - **Do** include the OTF concept note and STF proposal status in any follow-up, but not in the first message — keep the first contact short and let them ask.
