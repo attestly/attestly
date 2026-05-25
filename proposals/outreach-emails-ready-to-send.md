@@ -54,7 +54,7 @@ Hi,
 
 I'm a Portuguese founder working on an open-source Rust library called **Attestly** — it implements a Certificate-Transparency-style public log for AI Act Article 12 audit evidence. Working v0.1 is at github.com/attestly/attestly. I'm reaching out specifically because CTIC's protocol-analysis and applied-cryptography work seems like a strong fit for the scope I have in mind.
 
-The ask: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) for an **independent cryptographic review** of Attestly's canonical-hashing approach, Signed Tree Head format, and Decision Schema spec — before I freeze v0.1 publicly. That kind of independent eyes-on-the-spec is exactly what the protocol needs before grant reviewers and ecosystem partners look at it.
+The ask: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) for an **independent cryptographic review** of Attestly's canonical-hashing approach, Signed Tree Head format, and Decision Schema spec. I want an independent review before I freeze the spec publicly and start putting it in front of grant reviewers and partners.
 
 Two short questions:
 
@@ -81,9 +81,9 @@ github.com/attestly/attestly
 
 Dear [researcher name],
 
-Two new EU regulations are coming into force in 2026 that interact in ways I haven't seen analysed yet: the AI Act (Article 12 record-keeping, August) and eIDAS 2 (Article 45l on Qualified Electronic Ledgers, December). I'm writing because Católica CRC's work on internet governance and regulatory compliance seems like the right place in Portugal to think about how those two pieces fit together.
+I'm reaching out because I'm working on a small applied research question at the intersection of the AI Act and eIDAS 2, and Católica CRC seemed like one of the few places in Portugal where it might be a real fit.
 
-A short context: I'm a Lisbon-based founder, and I'm building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger that Article 45l recognises — designed to satisfy Article 12's audit-log requirement at the same time.
+A short context: I'm a Lisbon-based founder, and I'm building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger that eIDAS 2 Article 45l recognises (Qualified Electronic Ledgers, December 2026) — designed to satisfy AI Act Article 12's audit-log requirement (August 2026) at the same time. The two regulations interact in ways I haven't seen analysed yet.
 
 I'm preparing a small IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) and would like to engage Católica CRC as the accredited research partner on **a short position paper analysing how these two regulations interact in practice**. Case-study-grounded, maximum ten pages, intended to be useful to Portuguese SMEs and to inform Member State implementation guidance.
 
@@ -113,7 +113,7 @@ Hi,
 
 Quick context: I've shipped v0.1 of an open-source Rust library called **Attestly** (github.com/attestly/attestly) — a transparency-log-style audit primitive aimed at EU AI Act Article 12. Before I freeze the spec publicly, I'd like an independent crypto review.
 
-The scope: SHA-256 canonical-hashing approach (currently a domain-separated JSON encoding, considering migration to RFC 8785 JCS), Ed25519 signature patterns, Merkle tree and Signed Tree Head format, plus a forward look at the PQC migration story. Not novel cryptography — I'm composing well-understood primitives, and I want to make sure the composition holds up before I take it to wider audiences.
+The scope: SHA-256 canonical-hashing approach (currently a domain-separated JSON encoding, considering migration to RFC 8785 JCS), Ed25519 signature patterns, Merkle tree and Signed Tree Head format, plus a forward look at the PQC migration story. I'm using well-understood primitives, but I want an external review of the composition before I widen distribution.
 
 There's a small budget for it: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November). IT Aveiro's Security and Cryptography group is a natural fit; your work on PQC migration in particular is directly relevant.
 
