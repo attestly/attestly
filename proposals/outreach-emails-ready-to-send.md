@@ -27,7 +27,7 @@ Caros Senhores,
 
 I'm preparing a submission to the ESA BASS Kick-Start round, cut-off 28 August. My understanding is that a Portugal Space letter of authorisation is a submission prerequisite, and I'd like to start that process now to leave time for any back-and-forth.
 
-The project: my company **Conforme** (https://conforme.info) is a live PT-based SaaS for short-term-rental compliance. The Kick-Start proposal integrates Copernicus Sentinel imagery and complementary EO data into the product, for address verification and grey-market occupancy detection across the c. 47,000 registered RNAL properties. €100k total (€75k ESA / €25k Conforme co-financing).
+The project: my company **Conforme** (https://conforme.info) is a live PT-based SaaS for short-term-rental compliance. The Kick-Start proposal integrates Copernicus Sentinel imagery and complementary EO data into the product, for address verification and occupancy-pattern detection across the c. 47,000 registered RNAL properties. €100k total (€75k ESA / €25k Conforme co-financing).
 
 Could you let me know the current process and expected timeline for the letter, and whether you'd prefer a written technical brief or a meeting first? I can come to your offices in Lisbon, or send the draft Kick-Start proposal directly — whichever fits your workflow.
 
@@ -83,7 +83,7 @@ Dear [researcher name],
 
 I'm reaching out because I'm working on a small applied research question at the intersection of the AI Act and eIDAS 2, and Católica CRC seemed like one of the few places in Portugal where it might be a real fit.
 
-A short context: I'm a Lisbon-based founder, and I'm building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger that eIDAS 2 Article 45l recognises (Qualified Electronic Ledgers, December 2026) — designed to satisfy AI Act Article 12's audit-log requirement (August 2026) at the same time. The two regulations interact in ways I haven't seen analysed yet.
+A short context: I'm a Lisbon-based founder building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger eIDAS 2 Article 45l recognises, designed to help satisfy AI Act Article 12 audit-log requirements at the same time. I haven't yet seen much analysis of how those two regimes fit together in practice.
 
 I'm preparing a small IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) and would like to engage Católica CRC as the accredited research partner on **a short position paper analysing how these two regulations interact in practice**. Case-study-grounded, maximum ten pages, intended to be useful to Portuguese SMEs and to inform Member State implementation guidance.
 
