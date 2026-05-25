@@ -15,3 +15,8 @@ regulator-*.zip
 checkpoint-*.json
 attestly-*.key
 attestly-*.pub
+
+# local secrets — never commit
+.env
+.env.*
+!.env.example
