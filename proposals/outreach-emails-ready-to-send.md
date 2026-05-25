@@ -1,185 +1,136 @@
-# Ready-to-send outreach emails
+# Ready-to-send outreach emails (v2 — review applied)
 
-Copy each block into your mail client. Subject lines marked **Subject:**. Send-routing notes follow each email.
+Copy each block. Subjects marked **Subject:**. Send-routing notes follow each email.
 
 Recommended order:
 
-1. Portugal Space — send today (longest lead time, hard ESA BASS deadline 28 Aug)
-2. INESC TEC — strongest fit for the Attestly cryptographic-analysis angle
-3. Católica CRC — secondary fit, legal-tech framing
-4. IT Aveiro — backup option, cryptography group
+1. Portugal Space — send today (hard ESA BASS deadline 28 Aug, longest lead time)
+2. INESC TEC — Monday
+3. Católica CRC — Tuesday
+4. IT Aveiro — Wednesday
 
-Send IAPMEI inquiries on separate days (Mon / Tue / Wed of the same week) so responses don't pile up and you can compare offers.
+Stagger so responses don't pile up.
+
+Each email aims for: who I am · one-line project · why you specifically · ask · offer to share more.
 
 ---
 
 ## 1. Portugal Space — ESA BASS letter of authorisation
 
-**To**: `info@portugalspace.pt`
-**Cc** (optional): the named ESA BASS national delegate if listed at portugalspace.pt/cooperacao-internacional/esa — verify before sending
-**Subject**: ESA BASS Kick-Start submission (28 August cut-off) — request for letter of authorisation
+**To**: `info@portugalspace.pt`  
+**Cc** (optional): named ESA BASS delegate at portugalspace.pt/cooperacao-internacional/esa — verify before sending  
+**Subject**: ESA BASS Kick-Start (28 Aug cut-off) — letter of authorisation
 
 ---
 
-Caros Senhores da Portugal Space,
+Caros Senhores,
 
-I am writing to request a letter of authorisation for the upcoming ESA Business Applications Space Solutions (BASS) Kick-Start submission round, with a cut-off date of 28 August 2026.
+I'm preparing a submission to the ESA BASS Kick-Start round, cut-off 28 August. My understanding is that a Portugal Space letter of authorisation is a submission prerequisite, and I'd like to start that process now to leave time for any back-and-forth.
 
-I lead **Conforme** (https://conforme.info), a Portuguese SaaS company in production serving short-term-rental compliance for property managers across Portugal. We are preparing a Kick-Start proposal to integrate Copernicus Sentinel-1/-2/-3 imagery and complementary EO data sources (NPP-VIIRS night-lights, ECOSTRESS thermal) into our existing compliance product, specifically for:
+The project: my company **Conforme** (https://conforme.info) is a live PT-based SaaS for short-term-rental compliance. The Kick-Start proposal integrates Copernicus Sentinel imagery and complementary EO data into the product, for address verification and grey-market occupancy detection across the c. 47,000 registered RNAL properties. €100k total (€75k ESA / €25k Conforme co-financing).
 
-1. **Address verification** of registered RNAL properties (cross-referencing self-declared coordinates against cadastral polygons and SAR/optical signatures).
-2. **Grey-market occupancy detection** for properties declared inactive but with EO-derivable thermal or activity signatures.
-
-The proposal is for a 6-month feasibility phase, €100,000 total (€75,000 ESA + €25,000 Conforme co-financing from operating revenue). On successful completion, a natural BASS Demonstration follow-on extends the work to other EU Member States under EU Regulation 2024/1028 (the new EU short-term-rental data-collection regulation entering force across 2027).
-
-The letter of authorisation is, as I understand it, a Portugal Space prerequisite for BASS submission as the Portuguese delegation to ESA. I would be grateful to know:
-
-- The current process and expected timeline for issuance.
-- Whether you require a meeting or a written technical brief before issuing.
-- The format/template you typically use.
-
-The full draft Kick-Start proposal (currently 7 pages) is ready to share at your request. I am happy to come to your offices (Lisbon-based) or to schedule a video call at your convenience to present the work in person.
-
-Thank you for your time.
+Could you let me know the current process and expected timeline for the letter, and whether you'd prefer a written technical brief or a meeting first? I can come to your offices in Lisbon, or send the draft Kick-Start proposal directly — whichever fits your workflow.
 
 Com os melhores cumprimentos,
 
 Curtis  
 Founder, Conforme · ENI Portugal  
-hello@conforme.info · curts152@gmail.com  
-https://conforme.info  
-+351 [your phone number]
+hello@conforme.info · +351 [your phone]  
+https://conforme.info
 
-**Send-routing note**: Portugal Space is the national delegation to ESA. The named BASS contact varies by year; check https://portugalspace.pt/cooperacao-internacional/esa for the current programme officer's name and Cc them directly if listed. If no named contact, `info@portugalspace.pt` is the right entry point.
+**Send-routing note**: General inbox routes correctly, but Portugal Space publishes its ESA cooperation contacts at portugalspace.pt/cooperacao-internacional/esa — Cc the named BASS delegate if listed.
 
 ---
 
 ## 2. INESC TEC — IAPMEI Vale Inovação partner inquiry
 
-**To**: `comunicacao@inesctec.pt` (general inquiries) — for a faster path, find the head of the Centre for Information and Cyber Security (CTIC) at https://www.inesctec.pt/en/centres/ctic and contact them directly
-**Subject**: IAPMEI Vale Inovação research-partnership inquiry — open-source AI Act audit-log infrastructure
+**To**: head of the Centre for Information and Cyber Security (CTIC) at INESC TEC — find current head via https://www.inesctec.pt/en/centres/ctic and use their direct address  
+**Cc** (optional): `comunicacao@inesctec.pt` (general inquiries) as fallback  
+**Subject**: Small applied R&D engagement — open-source Rust transparency-log library
 
 ---
 
-Dear INESC TEC research team,
+Hi,
 
-I am writing to inquire about a research-partnership opportunity for a small but high-impact R&D project I am preparing for submission under IAPMEI's Vale Inovação Simplificado programme (deadline 30 November 2026).
+I'm a Portuguese founder working on an open-source Rust library called **Attestly** — it implements a Certificate-Transparency-style public log for AI Act Article 12 audit evidence. Working v0.1 is at github.com/attestly/attestly. I'm reaching out specifically because CTIC's protocol-analysis and applied-cryptography work seems like a strong fit for the scope I have in mind.
 
-I lead **Attestly** (https://attestly.org), an open-source Rust library that publishes append-only Merkle-rooted Signed Tree Heads to a public transparency log — applying the Certificate Transparency pattern to the EU AI Act Article 12 audit-log integrity requirement. The project has a working v0.1, 20 tests passing, and is hosted publicly at github.com/attestly/attestly under Apache-2.0. Parallel grant submissions are in preparation to the Sovereign Tech Fund and NLnet NGI Zero Commons.
+The ask: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) for an **independent cryptographic review** of Attestly's canonical-hashing approach, Signed Tree Head format, and Decision Schema spec — before I freeze v0.1 publicly. That kind of independent eyes-on-the-spec is exactly what the protocol needs before grant reviewers and ecosystem partners look at it.
 
-The R&D scope I would like to work on jointly is **an independent cryptographic analysis of the Attestly transparency-log protocol and Decision Schema**, focused on:
+Two short questions:
 
-- Adversarial-model documentation (regulator-vs-operator, prosecutor-vs-defence in civil-society casework, operator-vs-operator in federated multi-org logs).
-- Empirical evaluation of the tamper-detection pipeline against documented attack classes (specifically against the C2PA timestamp-substitution flaw documented in arXiv 2604.24890).
-- Formal review of the Decision Schema v0.1 specification before public freeze.
+- Is INESC TEC currently on IAPMEI's accredited research-entity list?
+- Would CTIC be open to a short call to see if the scope is something one of your researchers would want to take on?
 
-The IAPMEI Vale Inovação Simplificado is structured as a €5k–€25k engagement with an accredited research entity, reimbursed at 85%. I am writing to ask:
+Happy to share the repo, the draft Kick-Start scope, and a short technical brief. I'm based in Lisbon, comfortable coming to Porto.
 
-1. Whether INESC TEC is currently on IAPMEI's accredited research-entity list (I believe so, but would like to confirm).
-2. Whether the Centre for Information and Cyber Security (or another INESC TEC group with relevant expertise) would be open to a research engagement of this scope and size.
-3. What scoping conversation would be most useful as a next step.
-
-I would be glad to share the full Attestly technical documentation, the working demo, and the grant-proposal context at your convenience. Happy to meet in Porto or via video call.
-
-Com os melhores cumprimentos,
+Best,
 
 Curtis  
-Independent researcher / Founder, Attestly  
-hello@attestly.org · curts152@gmail.com  
-https://attestly.org · https://github.com/attestly/attestly
-
-**Send-routing note**: INESC TEC has multiple centres. The Centre for Information and Cyber Security (CTIC) is the strongest fit for cryptographic-protocol analysis. If your initial reply comes from `comunicacao@inesctec.pt`, ask them to route to CTIC directly.
+hello@attestly.org · https://attestly.org  
+github.com/attestly/attestly
 
 ---
 
 ## 3. Católica-Lisbon CRC — IAPMEI Vale Inovação partner inquiry
 
-**To**: `info@research.lisbon.ucp.pt` — for a faster path, identify the relevant programme director at the Católica Centre for Research in Communication, Internet and Innovation (CRC) and Cc them
-**Subject**: IAPMEI Vale Inovação research-partnership inquiry — regulatory framework for EU AI Act Article 12 evidence
+**To**: identify a Católica CRC researcher working on internet governance, regulatory compliance, or digital-evidence law via https://www.fch.lisboa.ucp.pt — Cc them directly  
+**Cc** (optional): `info@research.lisbon.ucp.pt` (general inquiries) as fallback  
+**Subject**: Question about cryptographic-evidence law under eIDAS 2 and the AI Act
 
 ---
 
-Dear Católica CRC research team,
+Dear [researcher name],
 
-I am writing to inquire about a research-partnership opportunity under IAPMEI's Vale Inovação Simplificado programme (deadline 30 November 2026).
+Two new EU regulations are coming into force in 2026 that interact in ways I haven't seen analysed yet: the AI Act (Article 12 record-keeping, August) and eIDAS 2 (Article 45l on Qualified Electronic Ledgers, December). I'm writing because Católica CRC's work on internet governance and regulatory compliance seems like the right place in Portugal to think about how those two pieces fit together.
 
-I lead **Attestly** (https://attestly.org), an open-source library that publishes cryptographically-verifiable Signed Tree Heads to a public transparency log — providing the integrity assurance layer that the EU AI Act mandates (Article 12) but does not technically specify. The project has a working v0.1 at github.com/attestly/attestly under Apache-2.0. Parallel grant submissions are in preparation to the Sovereign Tech Fund, NLnet NGI Zero Commons, and the Open Technology Fund.
+A short context: I'm a Lisbon-based founder, and I'm building an open-source reference implementation (**Attestly**, github.com/attestly/attestly) of the kind of cryptographic ledger that Article 45l recognises — designed to satisfy Article 12's audit-log requirement at the same time.
 
-The research scope I would like to work on jointly with Católica CRC is **the regulatory and evidentiary-law framing of public-anchor cryptographic primitives** — specifically:
+I'm preparing a small IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November) and would like to engage Católica CRC as the accredited research partner on **a short position paper analysing how these two regulations interact in practice**. Case-study-grounded, maximum ten pages, intended to be useful to Portuguese SMEs and to inform Member State implementation guidance.
 
-- A position paper analysing how eIDAS 2 Regulation (EU) 2024/1183 Article 45l (Qualified Electronic Ledgers, full implementation December 2026) interacts with the AI Act Article 12 record-keeping obligations.
-- Case-study analysis of how Attestly-anchored evidence chains would have changed the evidentiary trajectory of published civil-society and journalism cases (ICC briefings, European Court of Human Rights filings, national-level press-freedom cases).
-- Recommendations for Member State implementation guidance on cryptographic-ledger-anchored audit logging under Article 12.
+Two short questions:
 
-The IAPMEI Vale Inovação Simplificado is a €5k–€25k engagement with an accredited research entity at 85% reimbursement. Católica CRC's combined expertise across communication law, internet governance, and innovation policy is a strong fit for this scope.
+- Is Católica CRC on IAPMEI's accredited research-entity list?
+- Would this kind of small applied research engagement fit your group's interests?
 
-I am writing to ask:
+Glad to send the technical context, the draft application scope, and meet in Lisbon when convenient.
 
-1. Whether Católica CRC is on IAPMEI's accredited research-entity list (I believe Católica institutionally is — would like to confirm CRC specifically qualifies).
-2. Whether there is academic interest in the regulatory-framework analysis described above as a small-scope research engagement.
-3. What a scoping conversation would look like as a next step.
-
-I would be glad to share the full Attestly technical documentation and the parallel-grant context at your convenience. Lisbon-based; happy to meet at Católica or via video call.
-
-Com os melhores cumprimentos,
+Cumprimentos,
 
 Curtis  
-Independent researcher / Founder, Attestly  
-hello@attestly.org · curts152@gmail.com  
-https://attestly.org · https://github.com/attestly/attestly
-
-**Send-routing note**: Católica CRC's website lists current researchers and programme themes — pick the closest match (likely an internet-governance or regulatory-tech researcher) and Cc them on the initial email. Generic `info@research.lisbon.ucp.pt` is the entry point if no specific researcher fits cleanly.
+hello@attestly.org · https://attestly.org
 
 ---
 
-## 4. Instituto de Telecomunicações (IT Aveiro) — IAPMEI Vale Inovação partner inquiry
+## 4. IT Aveiro — IAPMEI Vale Inovação partner inquiry
 
-**To**: `secretariado@it.pt` (Instituto de Telecomunicações general secretariat) — for a faster path, find the head of the Security and Cryptography group at IT Aveiro and contact them directly
-**Subject**: IAPMEI Vale Inovação research-partnership inquiry — cryptographic protocol review for open-source transparency-log library
+**To**: head of the Security and Cryptography group at IT Aveiro — find via https://www.it.pt and use their direct address  
+**Cc** (optional): `secretariado@it.pt` (general secretariat) as fallback  
+**Subject**: Independent cryptographic review for an open-source Rust library — IAPMEI Vale Inovação
 
 ---
 
-Dear Instituto de Telecomunicações team,
+Hi,
 
-I am writing to inquire about a research-partnership opportunity under IAPMEI's Vale Inovação Simplificado programme (deadline 30 November 2026).
+Quick context: I've shipped v0.1 of an open-source Rust library called **Attestly** (github.com/attestly/attestly) — a transparency-log-style audit primitive aimed at EU AI Act Article 12. Before I freeze the spec publicly, I'd like an independent crypto review.
 
-I lead **Attestly** (https://attestly.org), an open-source Rust library that publishes Merkle-rooted Signed Tree Heads to a public transparency log — applying the Certificate Transparency pattern to EU AI Act Article 12 audit-log integrity. The project has a working v0.1 at github.com/attestly/attestly under Apache-2.0, with parallel grant submissions in preparation to the Sovereign Tech Fund, NLnet NGI Zero Commons, and the Open Technology Fund.
+The scope: SHA-256 canonical-hashing approach (currently a domain-separated JSON encoding, considering migration to RFC 8785 JCS), Ed25519 signature patterns, Merkle tree and Signed Tree Head format, plus a forward look at the PQC migration story. Not novel cryptography — I'm composing well-understood primitives, and I want to make sure the composition holds up before I take it to wider audiences.
 
-The research scope I would like to engage IT Aveiro's Security and Cryptography group on is **a cryptographic protocol review of the Attestly transparency-log and Decision Schema specifications before public v1.0 freeze**:
+There's a small budget for it: I'm preparing an IAPMEI Vale Inovação Simplificado application (€5k–€25k, deadline 30 November). IT Aveiro's Security and Cryptography group is a natural fit; your work on PQC migration in particular is directly relevant.
 
-- Review of the canonical-hashing approach (currently SHA-256 over a domain-separated JSON encoding; we are evaluating a migration to RFC 8785 JCS).
-- Review of the Ed25519 signature usage patterns and key-management story (operator-side identity, DID-bound).
-- Review of the Merkle tree structure and Signed Tree Head format for compatibility with the IETF C2SP working group's emerging witness-based federation protocols.
-- Recommendations for post-quantum migration pathway (relevant to eIDAS 2 Article 45l Qualified Electronic Ledger compliance over the medium term).
+Two questions:
 
-The IAPMEI Vale Inovação Simplificado is a €5k–€25k engagement with an accredited research entity at 85% reimbursement. IT Aveiro's combination of cryptography research and applied protocol expertise (you have prior work on PQC migration and on cryptographic-primitive integration into communication protocols) is a strong scope fit.
+- Is IT on IAPMEI's accredited research-entity list?
+- Would a short scoping call make sense to see if this is something the group would take on?
 
-I am writing to ask:
+Repo, draft Kick-Start scope, and technical note all available to share.
 
-1. Whether IT Aveiro is on IAPMEI's accredited research-entity list (I believe so).
-2. Whether the Security and Cryptography group would be open to a small-scope review engagement of this kind.
-3. What scoping conversation would be most useful as a next step.
-
-I would be glad to share the full Attestly technical documentation, the working demo, and the parallel-grant context at your convenience.
-
-Com os melhores cumprimentos,
+Thanks,
 
 Curtis  
-Independent researcher / Founder, Attestly  
-hello@attestly.org · curts152@gmail.com  
-https://attestly.org · https://github.com/attestly/attestly
-
-**Send-routing note**: IT (Instituto de Telecomunicações) is a multi-site research institute with branches in Lisbon, Aveiro, Coimbra, Leiria. The Aveiro branch has the strongest cryptography-research output. The general secretariat will route correctly if you mention "Security and Cryptography group, IT Aveiro" in the email.
+hello@attestly.org · https://attestly.org
 
 ---
 
-## Tracking the responses
+## Tracking
 
-For each email sent, add to your task list:
-
-- Sent date
-- Recipient
-- Expected first-response timeline (Portugal Space: 1-2 weeks; INESC TEC: 1-2 weeks; Católica CRC: 2-3 weeks; IT Aveiro: 1-2 weeks)
-- Followup nudge if no response after the expected window + 1 week
-
-If you'd like, I can convert this into a tracking table that lives alongside the proposals once you've started sending.
+For each sent email, log: date sent · recipient · expected response window (1–2 weeks for Portugal Space + IT Aveiro, 2–3 weeks for the others) · followup nudge date. I can convert this section into a tracking table once you've started sending.
