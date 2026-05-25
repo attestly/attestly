@@ -1,392 +1,898 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Open verification infrastructure for EU AI Act Article 12 evidence. Drop-in tamper-evident audit log + regulator-runnable verifier for high-risk AI systems." />
-  <title>Attestly — open verification infrastructure for EU AI Act Article 12</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A202C'/%3E%3Cpath d='M8 16l5 5 11-11' stroke='%2363B3ED' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
-      background: #0F1014;
-      color: #E8E8EC;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: #63B3ED; text-decoration: none; transition: color 120ms; }
-    a:hover { color: #90CDF4; }
-    code, pre { font-family: "JetBrains Mono", "IBM Plex Mono", Consolas, monospace; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attestly — Tamper-evident audit logs for EU AI Act Article 12</title>
+<meta name="description" content="An open-source Rust library that records every decision of a high-risk AI system in a Merkle-anchored, append-only ledger. Drop-in evidentiary integrity for Article 12, grounded in eIDAS 2 Article 45l.">
+<meta property="og:title" content="Attestly — Tamper-evident audit logs for EU AI Act Article 12">
+<meta property="og:description" content="Open verification infrastructure for high-risk artificial intelligence. Merkle-anchored evidence. Regulator-runnable verifier. Apache-2.0.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://attestly.org">
+<link rel="canonical" href="https://attestly.org/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F4EFE2'/%3E%3Cline x1='16' y1='8' x2='8' y2='17' stroke='%231A1812' stroke-width='0.9'/%3E%3Cline x1='16' y1='8' x2='24' y2='17' stroke='%231A1812' stroke-width='0.9'/%3E%3Cline x1='8' y1='17' x2='5' y2='25' stroke='%231A1812' stroke-width='0.8'/%3E%3Cline x1='8' y1='17' x2='11' y2='25' stroke='%231A1812' stroke-width='0.8'/%3E%3Cline x1='24' y1='17' x2='21' y2='25' stroke='%231A1812' stroke-width='0.8'/%3E%3Cline x1='24' y1='17' x2='27' y2='25' stroke='%231A1812' stroke-width='0.8'/%3E%3Ccircle cx='16' cy='8' r='1.9' fill='%236B0F1A'/%3E%3Ccircle cx='8' cy='17' r='1.5' fill='%231A1812'/%3E%3Ccircle cx='24' cy='17' r='1.5' fill='%231A1812'/%3E%3Ccircle cx='5' cy='25' r='1.2' fill='%231A1812'/%3E%3Ccircle cx='11' cy='25' r='1.2' fill='%231A1812'/%3E%3Ccircle cx='21' cy='25' r='1.2' fill='%231A1812'/%3E%3Ccircle cx='27' cy='25' r='1.2' fill='%231A1812'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+<style>
+:root {
+  --ink:        #1A1812;
+  --ink-faint:  #524A3A;
+  --ink-soft:   #756B57;
+  --paper:      #F4EFE2;
+  --paper-soft: #EBE4D0;
+  --paper-deep: #DDD3B7;
+  --rule:       #B5AC93;
+  --rule-faint: #D6CFB8;
+  --seal:       #6B0F1A;
+  --seal-soft:  #8B2C36;
+  --gold:       #A8732B;
 
-    /* ============ Header ============ */
-    header {
-      padding: 32px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-    .logo-mark {
-      display: inline-block;
-      width: 22px;
-      height: 22px;
-      background: #1A202C;
-      border-radius: 5px;
-      vertical-align: middle;
-      margin-right: 8px;
-      position: relative;
-    }
-    .logo-mark::after {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border: 2px solid #63B3ED;
-      border-right: none;
-      border-top: none;
-      border-radius: 0 0 0 4px;
-      transform: rotate(-45deg);
-      transform-origin: center;
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      font-size: 14px;
-    }
-    .nav-links a { color: #A0AEC0; }
-    .nav-links a:hover { color: #fff; }
+  --serif: 'Spectral', 'Adobe Caslon Pro', Georgia, serif;
+  --mono:  'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
 
-    /* ============ Hero ============ */
-    .hero {
-      padding: 88px 0 56px 0;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #fff;
-      max-width: 760px;
-      margin: 0 auto 24px;
-    }
-    .hero h1 span { color: #63B3ED; }
-    .hero .tagline {
-      color: #A0AEC0;
-      font-size: clamp(16px, 2vw, 20px);
-      max-width: 620px;
-      margin: 0 auto 32px;
-    }
-    .cta-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 150ms;
-      border: 1px solid transparent;
-    }
-    .btn-primary {
-      background: #63B3ED;
-      color: #0F1014;
-    }
-    .btn-primary:hover { background: #90CDF4; color: #0F1014; }
-    .btn-secondary {
-      background: transparent;
-      color: #E8E8EC;
-      border-color: rgba(255, 255, 255, 0.16);
-    }
-    .btn-secondary:hover { border-color: #63B3ED; color: #fff; }
-    .deadline-banner {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 6px 14px;
-      background: rgba(99, 179, 237, 0.10);
-      border: 1px solid rgba(99, 179, 237, 0.3);
-      border-radius: 100px;
-      font-size: 13px;
-      color: #90CDF4;
-    }
+  --measure:  34rem;
+  --page-max: 60rem;
+  --pad-x:    2.5rem;
+}
 
-    /* ============ Demo ============ */
-    .demo {
-      padding: 32px 0 88px 0;
-    }
-    .demo-frame {
-      max-width: 880px;
-      margin: 0 auto;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: #0a0b0e;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    }
-    .demo-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .demo-caption {
-      text-align: center;
-      color: #718096;
-      font-size: 14px;
-      margin-top: 16px;
-    }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ============ Three primitives ============ */
-    .primitives {
-      padding: 56px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .section-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .section-subtitle {
-      text-align: center;
-      color: #A0AEC0;
-      margin-bottom: 48px;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      padding: 28px 24px;
-    }
-    .card-num {
-      font-size: 12px;
-      color: #63B3ED;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .card h3 {
-      color: #fff;
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-    .card p { color: #A0AEC0; font-size: 14.5px; }
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+  scroll-behavior: smooth;
+}
 
-    /* ============ Why now ============ */
-    .why-now {
-      padding: 64px 0;
-      background: rgba(99, 179, 237, 0.04);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .why-now-content {
-      max-width: 680px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .why-now h2 {
-      color: #fff;
-      font-size: 26px;
-      margin-bottom: 20px;
-    }
-    .why-now p { color: #CBD5E0; margin-bottom: 16px; }
+body {
+  background:
+    radial-gradient(circle at 18% 8%,  rgba(168,115,43,0.045) 0%, transparent 55%),
+    radial-gradient(circle at 82% 88%, rgba(107,15,26,0.035)  0%, transparent 50%),
+    var(--paper);
+  min-height: 100vh;
+  position: relative;
+}
 
-    /* ============ Quickstart ============ */
-    .quickstart {
-      padding: 64px 0;
-    }
-    .code-block {
-      background: #0a0b0e;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin: 24px auto;
-      max-width: 680px;
-      font-size: 14px;
-      overflow-x: auto;
-    }
-    .code-block .comment { color: #718096; }
-    .code-block .keyword { color: #63B3ED; }
+/* Letterhead hairlines, fixed to page edges */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--rule);
+  z-index: 5;
+  pointer-events: none;
+}
+body::before { top: 0; }
+body::after  { bottom: 0; }
 
-    /* ============ Footer ============ */
-    footer {
-      padding: 48px 0 64px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      color: #718096;
-      font-size: 14px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 32px;
-      margin-bottom: 32px;
-    }
-    .footer-col h4 {
-      color: #E8E8EC;
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .footer-col a {
-      display: block;
-      color: #A0AEC0;
-      padding: 4px 0;
-      font-size: 14px;
-    }
-    .footer-bottom {
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      text-align: center;
-      color: #4A5568;
-      font-size: 12px;
-    }
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  position: relative;
+}
 
-    @media (max-width: 640px) {
-      .footer-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-  </style>
+/* ============ Transparency Log Entry header ============ */
+.tle {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  padding: 1rem 0 0.7rem;
+  border-bottom: 1px solid var(--rule-faint);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.6rem;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+.tle dt { display: inline; opacity: 0.65; margin-right: 0.4rem; }
+.tle dt::after { content: ""; }
+.tle dd { display: inline; color: var(--ink); }
+.tle .hash { text-transform: none; letter-spacing: 0; color: var(--seal); }
+
+/* ============ Masthead ============ */
+.masthead {
+  padding: 5rem 0 3.2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.masthead::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: var(--seal);
+  margin: 0 auto 2.2rem;
+}
+.title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  letter-spacing: 0.55rem;
+  text-indent: 0.55rem;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.title .seal {
+  color: var(--seal);
+}
+.subtitle {
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  color: var(--ink-faint);
+  margin-top: 1.1rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.45;
+}
+.dateline {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule-faint);
+  display: inline-block;
+  padding-left: 2.2rem;
+  padding-right: 2.2rem;
+}
+.dateline span { color: var(--ink); margin: 0 0.15rem; }
+.dateline .sep { color: var(--rule); margin: 0 0.7rem; }
+
+/* ============ Thesis lede ============ */
+.thesis {
+  padding: 5rem 0 2rem;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+.stand-first {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--seal);
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.stand-first::before, .stand-first::after {
+  content: "";
+  height: 1px;
+  background: var(--rule);
+  flex: 1;
+  max-width: 80px;
+}
+.stand-first { justify-content: center; text-align: center; }
+.lede {
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  font-weight: 400;
+  line-height: 1.32;
+  letter-spacing: -0.008em;
+  text-align: center;
+}
+.lede em {
+  font-style: italic;
+  color: var(--seal);
+}
+
+/* ============ Figure / Demo ============ */
+figure.plate {
+  margin: 4.5rem 0 5rem;
+  text-align: center;
+}
+.plate-frame {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 1.4rem 0;
+  background: var(--paper-soft);
+  position: relative;
+}
+.plate-frame::before, .plate-frame::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--rule-faint);
+}
+.plate-frame::before { top: 4px; }
+.plate-frame::after  { bottom: 4px; }
+.plate-frame img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+figure.plate figcaption {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-faint);
+  margin-top: 1.2rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+figure.plate figcaption .plate-no {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--seal);
+  margin-right: 0.55rem;
+}
+
+/* ============ Statute (section) ============ */
+section.statute {
+  padding: 4.5rem 0 3rem;
+  border-top: 1px solid var(--rule);
+}
+.section-marker {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--seal);
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.section-marker::after {
+  content: "";
+  height: 1px;
+  background: var(--rule-faint);
+  flex: 1;
+}
+.section-title {
+  font-size: clamp(1.55rem, 2.8vw, 2.05rem);
+  font-weight: 500;
+  margin-bottom: 2.4rem;
+  letter-spacing: -0.008em;
+  line-height: 1.22;
+  max-width: 32rem;
+}
+.section-title em { font-style: italic; color: var(--seal); }
+
+.prose {
+  max-width: var(--measure);
+  font-size: 1.0625rem;
+}
+.prose p { margin-bottom: 1.2rem; }
+.prose strong { font-weight: 500; color: var(--ink); }
+.prose .dropcap::first-letter {
+  font-family: var(--serif);
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.84;
+  padding: 0.06em 0.1em 0 0;
+  font-weight: 400;
+  color: var(--seal);
+}
+
+/* Marginalia layout */
+.with-margins {
+  display: grid;
+  grid-template-columns: var(--measure) 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.margin-notes {
+  font-style: italic;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  position: relative;
+  padding-top: 0.2rem;
+}
+.margin-notes::before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 0.4rem;
+  width: 1px;
+  height: calc(100% - 1rem);
+  background: var(--rule-faint);
+}
+.margin-notes p { margin-bottom: 1.1rem; }
+.margin-notes p:last-child { margin-bottom: 0; }
+.margin-notes .num {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--seal);
+  vertical-align: super;
+  letter-spacing: 0.05em;
+  margin-right: 0.3rem;
+}
+.margin-notes cite {
+  font-style: italic;
+  color: var(--ink-faint);
+}
+@media (max-width: 880px) {
+  .with-margins { grid-template-columns: 1fr; gap: 1.8rem; }
+  .margin-notes::before { display: none; }
+  .margin-notes {
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule-faint);
+  }
+}
+
+/* ============ Provisions (three primitives) ============ */
+.provisions {
+  border-top: 1px solid var(--rule);
+  margin-top: 1.5rem;
+}
+.provision {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 2.2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--rule-faint);
+}
+.provision:last-child { border-bottom: none; }
+.article-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  line-height: 1;
+}
+.article-num strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--seal);
+  letter-spacing: 0;
+  margin-bottom: 0.45rem;
+  line-height: 1;
+}
+.provision h3 {
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.005em;
+}
+.provision p {
+  font-size: 1rem;
+  max-width: 38rem;
+  color: var(--ink);
+}
+.provision p + p { margin-top: 0.55rem; }
+.provision .technical {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  margin-top: 1rem;
+  display: inline-block;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule-faint);
+}
+@media (max-width: 700px) {
+  .provision {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .article-num {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+  .article-num strong {
+    font-size: 1.6rem;
+    margin-bottom: 0;
+  }
+}
+
+/* ============ Public Notice (Why now) ============ */
+.notice {
+  border: 1px solid var(--ink);
+  padding: 2.8rem 2.4rem 2.2rem;
+  margin: 5rem 0 3rem;
+  position: relative;
+  background: var(--paper-soft);
+}
+.notice::before {
+  content: "Public Notice";
+  position: absolute;
+  top: -0.65rem;
+  left: 1.8rem;
+  background: var(--paper);
+  padding: 0 0.9rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--seal);
+}
+.notice h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-weight: 500;
+  margin-bottom: 1.1rem;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
+  max-width: 30rem;
+}
+.notice p {
+  font-size: 0.98rem;
+  max-width: 36rem;
+}
+.notice p + p { margin-top: 0.85rem; }
+.notice .citation {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  margin-top: 1.7rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.notice .citation .sep { color: var(--rule); margin: 0 0.55rem; }
+
+/* ============ Code block ============ */
+pre.code {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  line-height: 1.85;
+  padding: 1.8rem 2rem 1.8rem 4.6rem;
+  margin: 1.8rem 0;
+  overflow-x: auto;
+  position: relative;
+  counter-reset: line;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+pre.code .line {
+  display: block;
+  position: relative;
+  min-height: 1.85em;
+}
+pre.code .line::before {
+  counter-increment: line;
+  content: counter(line, decimal-leading-zero);
+  position: absolute;
+  left: -3.3rem;
+  width: 2.4rem;
+  text-align: right;
+  color: rgba(244, 239, 226, 0.32);
+  user-select: none;
+  font-size: 0.8em;
+}
+pre.code .c { color: rgba(244, 239, 226, 0.5); font-style: italic; }
+pre.code .k { color: #D4A24C; }
+pre.code .h { color: var(--paper); }
+
+/* ============ Registry table ============ */
+.registry-wrap {
+  margin: 2rem 0 1rem;
+  border-top: 1px solid var(--ink);
+}
+.registry {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.registry th, .registry td {
+  text-align: left;
+  padding: 0.85rem 1.2rem 0.85rem 0;
+  border-bottom: 1px solid var(--rule-faint);
+  vertical-align: top;
+}
+.registry th {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  padding: 0.6rem 1rem 0.6rem 0;
+}
+.registry td code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  color: var(--ink-faint);
+}
+.registry .state {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.registry .state-active { color: var(--seal); }
+.registry .state-dev    { color: var(--gold); font-style: italic; }
+.registry .state-pending{ color: var(--ink-soft); font-style: italic; }
+.registry tr:last-child td { border-bottom: none; }
+
+/* ============ Links ============ */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule);
+  transition: text-decoration-color 150ms, color 150ms;
+}
+a:hover {
+  text-decoration-color: var(--seal);
+  color: var(--seal);
+}
+a.ext::after {
+  content: " ↗";
+  font-family: var(--mono);
+  font-size: 0.7em;
+  margin-left: 0.05em;
+  color: var(--ink-soft);
+  vertical-align: 0.15em;
+}
+
+/* ============ Colophon footer ============ */
+.colophon {
+  margin-top: 6rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--ink);
+  padding-bottom: 4.5rem;
+}
+.colophon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.8rem;
+  margin-bottom: 3rem;
+}
+.col h4 {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--seal);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule-faint);
+  font-weight: 500;
+}
+.col ul { list-style: none; }
+.col li {
+  font-size: 0.92rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.4;
+}
+.col li small {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.colophon-final {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--rule-faint);
+  text-align: center;
+  line-height: 1.9;
+}
+.colophon-final .sep { color: var(--rule); margin: 0 0.55rem; }
+.colophon-final em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  display: block;
+  margin-top: 0.3rem;
+}
+@media (max-width: 880px) {
+  .colophon-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+}
+@media (max-width: 480px) {
+  .colophon-grid { grid-template-columns: 1fr; }
+}
+
+/* ============ Page load (subtle) ============ */
+@media (prefers-reduced-motion: no-preference) {
+  .page > * {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .page > *:nth-child(1) { animation-delay:    0ms; }
+  .page > *:nth-child(2) { animation-delay:   60ms; }
+  .page > *:nth-child(3) { animation-delay:  140ms; }
+  .page > *:nth-child(4) { animation-delay:  220ms; }
+  .page > *:nth-child(5) { animation-delay:  300ms; }
+  .page > *:nth-child(n+6) { animation-delay: 380ms; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+::selection { background: var(--seal); color: var(--paper); }
+
+/* ============ Responsive ============ */
+@media (max-width: 700px) {
+  :root { --pad-x: 1.5rem; --measure: 100%; }
+  .title { letter-spacing: 0.3rem; text-indent: 0.3rem; }
+  .dateline { font-size: 9.5px; padding-left: 1rem; padding-right: 1rem; }
+  .masthead { padding-top: 3.5rem; padding-bottom: 2.5rem; }
+  .thesis { padding-top: 3rem; }
+  figure.plate { margin: 3rem 0; }
+  section.statute { padding: 3rem 0 2rem; }
+  .notice { padding: 2.2rem 1.5rem 1.8rem; margin: 3rem 0; }
+  pre.code { padding-left: 3.6rem; padding-right: 1rem; }
+  pre.code .line::before { left: -2.6rem; width: 2rem; }
+  .tle { font-size: 9px; gap: 0.1rem 0.8rem; }
+}
+
+/* ============ Print stylesheet ============ */
+@media print {
+  body { background: white; }
+  body::before, body::after { display: none; }
+  .tle, .colophon-final { display: none; }
+  pre.code {
+    background: white;
+    color: black;
+    border: 1px solid #999;
+  }
+  pre.code .line::before { color: #888; }
+  pre.code .c, pre.code .k { color: black; }
+  a { text-decoration-color: black; color: black; }
+  a.ext::after { content: " (" attr(href) ")"; font-size: 0.7em; color: #555; }
+  .page > * { animation: none !important; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo"><span class="logo-mark"></span>Attestly</div>
-      <nav class="nav-links">
-        <a href="#demo">Demo</a>
-        <a href="#what">What it does</a>
-        <a href="#quickstart">Quickstart</a>
-        <a href="https://github.com/attestly/attestly">GitHub</a>
-      </nav>
-    </div>
-  </header>
+<div class="page">
 
-  <section class="hero">
-    <div class="container">
-      <h1>Open verification infrastructure for <span>EU AI Act Article 12</span> evidence</h1>
-      <p class="tagline">A drop-in tamper-evident audit log + regulator-runnable verifier for any high-risk AI system. Public cryptographic commitments. Private decision payloads. GDPR-compatible by construction.</p>
-      <div class="cta-row">
-        <a href="https://github.com/attestly/attestly" class="btn btn-primary">View on GitHub</a>
-        <a href="#demo" class="btn btn-secondary">Watch the 27-second demo</a>
+<!-- ============================================================
+     Transparency Log Entry — the document chrome that names
+     the system the page describes. This is concrete poetry,
+     not metadata; the page is rendered as if logged to itself.
+     ============================================================ -->
+<dl class="tle" aria-label="Transparency log entry for this document">
+  <dt>TLE</dt><dd>2026/05/25–001</dd>
+  <dt>Log</dt><dd>attestly.org</dd>
+  <dt>Tree size</dt><dd>1</dd>
+  <dt>Root</dt><dd class="hash">4e074085…9b49fce</dd>
+  <dt>Sig</dt><dd class="hash">ED25519(b2bce81f…)</dd>
+</dl>
+
+<!-- ============================================================
+     Masthead
+     ============================================================ -->
+<header class="masthead">
+  <h1 class="title">Attest<span class="seal">ly</span></h1>
+  <p class="subtitle">Open verification infrastructure for high-risk artificial intelligence</p>
+  <p class="dateline">
+    Volume&nbsp;<span>I</span>
+    <span class="sep">·</span>
+    Number&nbsp;<span>1</span>
+    <span class="sep">·</span>
+    Filed&nbsp;<span>25 May 2026</span>
+    <span class="sep">·</span>
+    <span>Lisbon</span>
+  </p>
+</header>
+
+<!-- ============================================================
+     Thesis
+     ============================================================ -->
+<section class="thesis">
+  <p class="stand-first">A Statement of the Problem</p>
+  <p class="lede">
+    The EU AI Act compels every high-risk system to keep a complete log of its decisions. It does <em>not</em> compel that the log be trustworthy — and today, no off-the-shelf technology makes it so.
+  </p>
+</section>
+
+<!-- ============================================================
+     Plate I — the demo as legal exhibit
+     ============================================================ -->
+<figure class="plate">
+  <div class="plate-frame">
+    <img src="./attestly-demo.gif" alt="Twenty-seven-second screencast: an Attestly evidence bundle verifies on legitimate data, then fails with a precise hash mismatch when the underlying record is altered after the fact.">
+  </div>
+  <figcaption>
+    <span class="plate-no">Plate I.</span>End-to-end cryptographic tamper detection. A regulator's evidence bundle verifies on legitimate data; the same bundle fails — with the precise hash mismatch reported — when the operator alters the database after the fact.
+  </figcaption>
+</figure>
+
+<!-- ============================================================
+     § 1 — The statute (with marginalia)
+     ============================================================ -->
+<section class="statute">
+  <p class="section-marker">§ 1 · The Statute</p>
+  <h2 class="section-title">Article 12 mandates the log. It does not mandate <em>trust</em> in the log.</h2>
+
+  <div class="with-margins">
+    <div class="prose">
+      <p class="dropcap">From <strong>2 August 2026</strong>, every high-risk AI system placed on the EU market — credit scoring, hiring, biometric identification, employment, essential services, law enforcement, migration, justice<sup>1</sup> — must maintain automatic logs over its lifecycle.</p>
+      <p>The legal text says the logs must exist. It is silent on whether the logs can be <em>trusted</em>. Today a company can edit its own audit trail before a regulator inspects it, and there is no technical means by which the regulator can detect the edit. Penalties for record-keeping failures reach <strong>€15 million or 3% of global turnover</strong>.</p>
+      <p>Attestly is the integrity layer the regulation forgot to specify — published as open digital base infrastructure, not as a vendor product.</p>
+    </div>
+
+    <aside class="margin-notes">
+      <p><span class="num">1</span><cite>Regulation (EU) 2024/1689</cite>, Art.&nbsp;12 (record-keeping). Annex&nbsp;III enumerates the high-risk classes.</p>
+      <p><span class="num">2</span>Cf. Certificate Transparency (<cite>RFC&nbsp;9162</cite>) for TLS authorities; Sigstore Rekor for software supply chain.</p>
+      <p><span class="num">3</span>The architectural pattern dates to Merkle (1979) and Haber &amp; Stornetta (1991).</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     § 2 — Provisions (the three primitives)
+     ============================================================ -->
+<section class="statute">
+  <p class="section-marker">§ 2 · The Library</p>
+  <h2 class="section-title">Three primitives. One drop-in.</h2>
+
+  <div class="provisions">
+    <article class="provision">
+      <div class="article-num">Article<strong>I</strong>Ledger</div>
+      <div>
+        <h3>Append-only signed events</h3>
+        <p>Every AI decision is canonicalised, hashed, signed with the system's Ed25519 key, and appended to a hash-chained ledger. Database triggers enforce append-only at the SQL layer; cryptographic chaining enforces it at the storage layer.</p>
+        <p class="technical">SHA-256 &nbsp;·&nbsp; Ed25519 &nbsp;·&nbsp; SQLite WAL &nbsp;·&nbsp; PostgreSQL row-level append constraint</p>
       </div>
-      <div class="deadline-banner">EU AI Act Article 12 enforceable from 2 August 2026 · €15M / 3% global turnover penalties</div>
-    </div>
-  </section>
+    </article>
 
-  <section class="demo" id="demo">
-    <div class="container">
-      <div class="demo-frame">
-        <img src="./attestly-demo.gif" alt="27-second screencast: Attestly demo running. Initialise a ledger, append 50 synthetic credit decisions, publish a signed checkpoint, export a regulator evidence bundle, verify it (PASS), then watch the operator tamper with the database — and the verifier catch it (FAIL TAMPERED, with hash mismatch reported)." />
+    <article class="provision">
+      <div class="article-num">Article<strong>II</strong>Commitment</div>
+      <div>
+        <h3>Public Signed Tree Heads</h3>
+        <p>Merkle roots are periodically published to a transparency log as signed commitments — never the underlying decisions. The Signed Tree Head is the only data that touches public infrastructure. The decisions remain private to the operator.</p>
+        <p class="technical">RFC&nbsp;9162 &nbsp;·&nbsp; Sigstore Rekor compatible &nbsp;·&nbsp; GDPR-safe by construction</p>
       </div>
-      <p class="demo-caption">Real cryptographic tamper detection, end-to-end, in 27 seconds.</p>
-    </div>
-  </section>
+    </article>
 
-  <section class="primitives" id="what">
-    <div class="container">
-      <h2 class="section-title">Three primitives. One drop-in library.</h2>
-      <p class="section-subtitle">Apache-2.0 in perpetuity. No commercial dependency. No vendor lock-in.</p>
-      <div class="cards">
-        <div class="card">
-          <div class="card-num">01 · LEDGER</div>
-          <h3>Append-only signed events</h3>
-          <p>Every AI decision is canonically hashed, signed with the system's Ed25519 key, and appended to a hash-chained ledger. Database triggers enforce append-only at the SQL layer.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">02 · COMMITMENT</div>
-          <h3>Public Signed Tree Heads</h3>
-          <p>Merkle roots are published to a transparency log as signed commitments — never the decision payloads themselves. The architectural pattern is Certificate Transparency.</p>
-        </div>
-        <div class="card">
-          <div class="card-num">03 · VERIFIER</div>
-          <h3>Regulator-runnable, no operator trust</h3>
-          <p>A standalone CLI + browser-WASM verifier. A regulator drops an exported evidence bundle into the tool — and mathematically detects any post-publication tampering.</p>
-        </div>
+    <article class="provision">
+      <div class="article-num">Article<strong>III</strong>Verifier</div>
+      <div>
+        <h3>Regulator-runnable, no operator trust</h3>
+        <p>A standalone CLI and a browser-WASM verifier. A regulator drops an exported evidence bundle into the tool and receives a mathematical verdict — independent of the operator's claims, independent of any vendor.</p>
+        <p class="technical">Single-binary CLI &nbsp;·&nbsp; WASM verifier under 500&nbsp;KB &nbsp;·&nbsp; Reproducible builds</p>
       </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     Public Notice (Why now)
+     ============================================================ -->
+<aside class="notice">
+  <h3>The window is short and time-locked by statute.</h3>
+  <p>Article&nbsp;12 of the AI Act becomes enforceable on 2&nbsp;August&nbsp;2026. eIDAS&nbsp;2 — Regulation&nbsp;(EU)&nbsp;2024/1183 — recognises Qualified Electronic Ledgers under Article&nbsp;45l from December&nbsp;2026, granting transparency-log-based attestations a legal presumption of authenticity.</p>
+  <p>For the first time, the EU's regulatory framework names cryptographic ledgers as evidentiary infrastructure. Attestly is the open reference implementation.</p>
+  <p class="citation">
+    Reg.&nbsp;(EU)&nbsp;2024/1689&nbsp;Art.&nbsp;12<span class="sep">·</span>Reg.&nbsp;(EU)&nbsp;2024/1183&nbsp;Art.&nbsp;45l<span class="sep">·</span>Annex&nbsp;III, AI&nbsp;Act
+  </p>
+</aside>
+
+<!-- ============================================================
+     § 3 — Access
+     ============================================================ -->
+<section class="statute">
+  <p class="section-marker">§ 3 · Access</p>
+  <h2 class="section-title">Five minutes to a verifiable demo.</h2>
+
+  <div class="prose">
+    <p>Rust 1.85 or newer. SQLite bundled. No other runtime dependencies. The end-to-end demo runs cleanly on Linux, macOS, and Windows.</p>
+  </div>
+
+  <pre class="code" aria-label="Quickstart shell commands"><span class="line"><span class="c"># Clone the source</span></span><span class="line">git clone <span class="k">https://github.com/attestly/attestly</span></span><span class="line">cd attestly</span><span class="line">cargo build --release</span><span class="line"></span><span class="line"><span class="c"># Run the end-to-end verification demo</span></span><span class="line">bash examples/demo.sh</span><span class="line"></span><span class="line"><span class="c"># Windows equivalent</span></span><span class="line">pwsh examples\demo.ps1</span></pre>
+
+  <div class="registry-wrap">
+    <table class="registry">
+      <thead>
+        <tr><th>Surface</th><th>State</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>attestly-core</code> · Rust library</td><td class="state state-active">v0.1.0 · active</td><td>20 tests passing. CI: Linux · macOS · Windows.</td></tr>
+        <tr><td><code>attestly-verify</code> · CLI verifier</td><td class="state state-active">v0.1.0 · active</td><td>Single static binary; reproducible build.</td></tr>
+        <tr><td>WASM browser verifier</td><td class="state state-dev">in&nbsp;development</td><td>Drag-bundle-and-verify UX for regulators.</td></tr>
+        <tr><td>Production transparency log (Tessera)</td><td class="state state-pending">scheduled</td><td>Pending grant outcomes.</td></tr>
+        <tr><td>Independent security audit</td><td class="state state-pending">scheduled</td><td>EU-based firm; commissioned upon grant award.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     § 4 — Grounding (with marginalia)
+     ============================================================ -->
+<section class="statute">
+  <p class="section-marker">§ 4 · Cross-References</p>
+  <h2 class="section-title">Grounding.</h2>
+
+  <div class="with-margins">
+    <div class="prose">
+      <p>Attestly is designed against the EU regulatory text and the international evidentiary standards a court will reference. The architecture is conventional and prior-art-supported: Merkle's 1979 binary authentication tree<sup>4</sup>, Haber &amp; Stornetta's 1991 cryptographic time-stamping<sup>5</sup>, the Certificate Transparency model from 2013<sup>6</sup>, and the Sigstore Rekor model from 2021<sup>7</sup>.</p>
+      <p>Attestly's contribution is the binding to <em>Article 12 evidentiary requirements</em> — not novel cryptography. That is the right choice for regulator confidence: a court should not be asked to assess a new primitive.</p>
     </div>
-  </section>
 
-  <section class="why-now">
-    <div class="container">
-      <div class="why-now-content">
-        <h2>Article 12 mandates logging. It does not mandate that the logs can be trusted.</h2>
-        <p>From 2 August 2026, every high-risk AI system in the EU (credit scoring, hiring, biometric, employment, essential services, law enforcement, migration, justice — Annex III) must maintain automatic logs over its lifecycle. The regulatory framework has no technical assurance layer for evidence integrity.</p>
-        <p>Attestly is that layer, published as open digital base infrastructure — not a SaaS product, not a vendor stack.</p>
-      </div>
+    <aside class="margin-notes">
+      <p><span class="num">4</span>Merkle, R. C. <cite>Secrecy, Authentication, and Public Key Systems.</cite> Stanford, 1979.</p>
+      <p><span class="num">5</span>Haber, S. &amp; Stornetta, W. S. <cite>How to Time-Stamp a Digital Document.</cite> J.&nbsp;Cryptol. 3 (1991).</p>
+      <p><span class="num">6</span>Laurie, B., et al. <cite>RFC&nbsp;9162: Certificate Transparency Version 2.0.</cite> IETF, 2021.</p>
+      <p><span class="num">7</span>Newman, Z., et al. <cite>Sigstore: Software Signing for Everybody.</cite> ACM&nbsp;CCS, 2022.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     Colophon
+     ============================================================ -->
+<footer class="colophon">
+  <div class="colophon-grid">
+    <div class="col">
+      <h4>Project</h4>
+      <ul>
+        <li><a href="https://github.com/attestly/attestly" class="ext">Source repository</a><small>github.com / attestly</small></li>
+        <li><a href="https://github.com/attestly/attestly/blob/main/README.md" class="ext">Documentation</a></li>
+        <li><a href="https://github.com/attestly/attestly/issues" class="ext">Issue tracker</a></li>
+      </ul>
     </div>
-  </section>
-
-  <section class="quickstart" id="quickstart">
-    <div class="container">
-      <h2 class="section-title">Five minutes to a working demo</h2>
-      <p class="section-subtitle">Rust 1.85+ required. SQLite bundled. No other dependencies.</p>
-      <pre class="code-block"><span class="comment"># Clone and build</span>
-git clone https://github.com/attestly/attestly
-cd attestly
-cargo build --release
-
-<span class="comment"># Run the end-to-end demo (bash)</span>
-bash examples/demo.sh
-
-<span class="comment"># …or PowerShell on Windows</span>
-pwsh examples/demo.ps1
-
-<span class="comment"># …or render the screencast yourself</span>
-python examples/render_demo.py</pre>
+    <div class="col">
+      <h4>Specifications</h4>
+      <ul>
+        <li>Decision schema v0.1<small>spec / draft</small></li>
+        <li>Checkpoint format v0.1<small>spec / draft</small></li>
+        <li>Verifier protocol v0.1<small>spec / draft</small></li>
+      </ul>
     </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4>Project</h4>
-          <a href="https://github.com/attestly/attestly">GitHub repository</a>
-          <a href="https://github.com/attestly/attestly/blob/main/SPRINT-PLAN.md">Sprint plan</a>
-          <a href="https://github.com/attestly/attestly/blob/main/README.md">Documentation</a>
-        </div>
-        <div class="footer-col">
-          <h4>Specifications</h4>
-          <a href="#">Decision Schema v0.1</a>
-          <a href="#">Checkpoint Format v0.1</a>
-          <a href="#">Verifier Protocol v0.1</a>
-        </div>
-        <div class="footer-col">
-          <h4>Compliance</h4>
-          <a href="https://artificialintelligenceact.eu/article/12/">EU AI Act Article 12</a>
-          <a href="#">Article 12 mapping doc</a>
-          <a href="#">GDPR posture</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        Apache-2.0 (code) · CC-BY-4.0 (specifications) · Funded in part by the Sovereign Tech Fund (application pending) · Built in Lisbon, Portugal
-      </div>
+    <div class="col">
+      <h4>Grounding</h4>
+      <ul>
+        <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689" class="ext">AI Act, Article 12</a></li>
+        <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1183" class="ext">eIDAS 2, Article 45l</a></li>
+        <li><a href="https://datatracker.ietf.org/doc/rfc9162/" class="ext">RFC 9162 (CT v2)</a></li>
+      </ul>
     </div>
-  </footer>
+    <div class="col">
+      <h4>Correspondence</h4>
+      <ul>
+        <li><a href="mailto:hello@attestly.org">hello@attestly.org</a></li>
+        <li>PGP key<small>publishing soon</small></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="colophon-final">
+    Apache-2.0&nbsp;(code)<span class="sep">·</span>CC-BY-4.0&nbsp;(specifications)<span class="sep">·</span>Lisbon, Portugal
+    <em>Set in Spectral by Production Type and IBM&nbsp;Plex&nbsp;Mono by IBM.</em>
+  </p>
+</footer>
+
+</div><!-- /.page -->
 </body>
 </html>
