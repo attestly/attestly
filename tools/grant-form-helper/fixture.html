@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Grant Form Helper — local fixture</title>
+  <style>
+    body { font: 14px/1.5 -apple-system, Segoe UI, sans-serif; max-width: 760px; margin: 32px auto; padding: 0 16px; }
+    .field { margin: 18px 0; }
+    label { display: block; font-weight: 600; margin-bottom: 4px; }
+    input, textarea { width: 100%; padding: 6px 8px; border: 1px solid #d0d7de; border-radius: 6px; font: inherit; }
+    textarea { min-height: 120px; }
+    h1 { font-size: 18px; }
+    .note { font-size: 12px; color: #57606a; }
+  </style>
+</head>
+<body>
+  <h1>Grant Form Helper — local fixture (no live portal involved)</h1>
+  <p class="note">This page simulates the STF apply portal field structure so the
+  userscript can be smoke-tested offline. The userscript itself only activates
+  on its <code>@match</code> URL — to test against this fixture, temporarily
+  add <code>@match file:///*</code> to the userscript header in your
+  userscript-manager UI (do NOT commit that change).</p>
+
+  <div class="field">
+    <label for="f-website">Link to project website (url)</label>
+    <input id="f-website" name="website" type="url" />
+  </div>
+
+  <div class="field">
+    <label for="f-repo">Link to project repository (url)</label>
+    <input id="f-repo" name="repo" type="url" />
+  </div>
+
+  <div class="field">
+    <label for="f-title">Project title</label>
+    <input id="f-title" name="title" type="text" />
+  </div>
+
+  <div class="field">
+    <label for="f-needs">project-needs</label>
+    <textarea id="f-needs" name="project-needs" aria-label="project-needs"></textarea>
+  </div>
+
+  <div class="field">
+    <label for="f-pub">public-interest</label>
+    <textarea id="f-pub" name="public-interest" aria-label="public-interest"></textarea>
+  </div>
+
+  <div class="field">
+    <label for="f-state">state-of-development</label>
+    <textarea id="f-state" name="state-of-development"></textarea>
+  </div>
+
+  <div class="field">
+    <label for="f-userbases">userbases</label>
+    <textarea id="f-userbases" name="userbases"></textarea>
+  </div>
+
+  <div class="field">
+    <label for="f-desc">Description</label>
+    <textarea id="f-desc" name="description"></textarea>
+  </div>
+
+  <div class="field">
+    <label for="f-cost">cost</label>
+    <input id="f-cost" name="cost" type="number" />
+  </div>
+</body>
+</html>
