@@ -20,6 +20,8 @@ const repoRoot = path.resolve(__dirname, '..', '..');
 const proposalsDir = path.join(repoRoot, 'proposals');
 const outFile = path.join(__dirname, 'grant-form-helper.user.js');
 const templateFile = path.join(__dirname, 'template.user.js');
+const standaloneOutFile = path.join(__dirname, 'standalone.html');
+const standaloneTemplate = path.join(__dirname, 'standalone-template.html');
 
 // Funder registry. To add a new funder:
 //   1. drop proposals/<id>-form-answers.md in proposals/
@@ -92,3 +94,13 @@ const out = template
 
 fs.writeFileSync(outFile, out);
 console.log(`[build] wrote ${outFile} (${out.length} bytes)`);
+
+// Also emit the standalone HTML page that doesn't need a browser extension.
+if (fs.existsSync(standaloneTemplate)) {
+  const htmlTemplate = fs.readFileSync(standaloneTemplate, 'utf8');
+  const htmlOut = htmlTemplate.replace('/* __FUNDERS__ */', funderObjects);
+  fs.writeFileSync(standaloneOutFile, htmlOut);
+  console.log(`[build] wrote ${standaloneOutFile} (${htmlOut.length} bytes)`);
+} else {
+  console.warn(`[build] SKIP standalone.html: ${standaloneTemplate} not found`);
+}

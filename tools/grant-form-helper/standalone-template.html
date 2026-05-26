@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grant Form Helper — Attestly</title>
+<meta name="description" content="Offline paste-helper for grant application forms. Self-contained HTML; embedded answers from proposals/*-form-answers.md.">
+<style>
+:root {
+  --bg: #fafaf7;
+  --surface: #ffffff;
+  --ink: #1A1812;
+  --ink-soft: #5a5340;
+  --ink-faint: #8a8175;
+  --rule: #d6cfb8;
+  --rule-faint: #ece5cf;
+  --seal: #6B0F1A;
+  --gold: #A8732B;
+  --good: #2e7d32;
+  --warn: #b54708;
+  --bad: #c62828;
+  --serif: 'Spectral', Georgia, serif;
+  --mono: 'JetBrains Mono', 'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 22px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+header h1 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+header h1 .seal { color: var(--seal); }
+header .meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink-faint);
+}
+header select, header input[type=search] {
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+}
+header input[type=search] { width: 260px; }
+header input[type=search]:focus, header select:focus {
+  outline: none;
+  border-color: var(--seal);
+}
+header .grow { flex: 1; }
+header .help-link {
+  font-size: 12px;
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+}
+header .help-link:hover { color: var(--seal); text-decoration-color: var(--seal); }
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 22px 80px;
+}
+.intro {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 16px 22px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.intro strong { color: var(--ink); }
+.intro code {
+  font-family: var(--mono);
+  background: var(--rule-faint);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.92em;
+}
+.fields { display: flex; flex-direction: column; gap: 8px; }
+.section-header {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--seal);
+  margin: 22px 0 4px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-faint);
+}
+.field {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  transition: border-color 120ms;
+}
+.field.hidden { display: none; }
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.field-row:hover { background: var(--rule-faint); }
+.field.expanded { border-color: var(--seal); }
+.field.expanded .field-row { background: rgba(107,15,26,0.04); }
+.field-title {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.field-title .kind {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  margin-left: 8px;
+  padding: 2px 6px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  vertical-align: 2px;
+}
+.field-wc {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  min-width: 60px;
+  text-align: right;
+}
+.field-wc.good { color: var(--good); }
+.field-wc.warn { color: var(--warn); }
+.field-wc.bad  { color: var(--bad); }
+.copy-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 120ms;
+  min-width: 70px;
+}
+.copy-btn:hover { background: var(--seal); border-color: var(--seal); }
+.copy-btn.copied { background: var(--good); border-color: var(--good); }
+.field-body {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--rule-faint);
+  margin-top: 0;
+}
+.field.expanded .field-body { display: block; padding-top: 12px; }
+.field-body pre {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--rule-faint);
+  border-radius: 3px;
+  padding: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: var(--sans);
+  opacity: 0;
+  transition: opacity 200ms, transform 200ms;
+  pointer-events: none;
+  z-index: 100;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+#toast.err { background: var(--bad); }
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+footer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 22px 32px;
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--rule-faint);
+  text-align: center;
+}
+footer a { color: var(--ink-soft); text-decoration-color: var(--rule); }
+footer a:hover { color: var(--seal); }
+@media (max-width: 640px) {
+  header { padding: 12px 16px; }
+  header input[type=search] { width: 100%; }
+  main { padding: 16px 12px 60px; }
+  .field-row { gap: 10px; padding: 10px 12px; }
+  .field-wc { min-width: 50px; font-size: 10px; }
+  .copy-btn { padding: 5px 10px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grant Form <span class="seal">Helper</span></h1>
+  <select id="funder-select" aria-label="Funder"></select>
+  <input type="search" id="search" placeholder="Filter fields…" aria-label="Filter">
+  <span class="grow"></span>
+  <span class="meta" id="field-count">— fields</span>
+</header>
+
+<main>
+  <div class="intro">
+    <strong>How to use:</strong> click any field row to preview the answer, click <strong>Copy</strong> to put it on your clipboard, then switch to the funder's form tab and paste. <strong>Nothing is sent anywhere</strong> — this is a self-contained offline page; no network calls, no analytics, no automation. The same content lives in <code>proposals/&lt;funder&gt;-form-answers.md</code> in the Attestly repo.
+  </div>
+  <div class="fields" id="fields"></div>
+  <div class="empty" id="empty" style="display:none;">No fields match the current filter.</div>
+</main>
+
+<footer>
+  Attestly · Apache-2.0 · <a href="https://github.com/attestly/attestly/tree/main/tools/grant-form-helper">github.com / attestly / grant-form-helper</a>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+// ===== Funder registry (build-time injected) ============================
+
+const FUNDERS = [
+/* __FUNDERS__ */
+];
+
+// ===== Markdown parser ==================================================
+
+function decodeBase64Utf8(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+function parseMarkdown(md) {
+  // Split into sections by H2 (## ) at line start. Track H1 (# ) as
+  // "tab" headers — each section belongs to the most-recent H1.
+  const lines = md.split(/\r?\n/);
+  const sections = [];
+  let currentTab = null;
+  let currentSection = null;
+  for (const line of lines) {
+    const h1Match = line.match(/^# (.+)$/);
+    const h2Match = line.match(/^## (.+)$/);
+    if (h1Match) {
+      currentTab = h1Match[1].trim();
+      currentSection = null;
+      continue;
+    }
+    if (h2Match) {
+      if (currentSection) sections.push(currentSection);
+      currentSection = {
+        tab: currentTab || '',
+        title: h2Match[1].trim(),
+        bodyLines: [],
+      };
+      continue;
+    }
+    if (currentSection) currentSection.bodyLines.push(line);
+  }
+  if (currentSection) sections.push(currentSection);
+  return sections.map(stripAndAnnotate);
+}
+
+function stripAndAnnotate(s) {
+  // Strip leading/trailing blank lines + the "**~165 words.**" trailing markers
+  let body = s.bodyLines.join('\n').trim();
+  body = body.replace(/\n+\*\*~?\d+\s*words?\.\*\*\s*$/i, '');
+  // Detect bracket annotation on the title: e.g. "Description (textarea, ~100 words)"
+  const kindMatch = s.title.match(/\(([^)]+)\)\s*$/);
+  const kind = kindMatch ? kindMatch[1] : '';
+  const title = s.title.replace(/\s*\([^)]+\)\s*$/, '');
+  // Try to extract a word-budget integer from the kind text
+  let wordBudget = null;
+  const budgetMatch = kind.match(/(?:≤|<=|~|max\s*)(\d+)/i) || kind.match(/(\d+)\s*words?/i);
+  if (budgetMatch) wordBudget = parseInt(budgetMatch[1], 10);
+  // Compute word count of body
+  const text = body.replace(/```[\s\S]*?```/g, ' ').replace(/[#*_`>\[\]]+/g, ' ');
+  const words = text.split(/\s+/).filter(Boolean).length;
+  // If body is mostly a single fenced code block, treat its content as the
+  // clipboard payload (unwrap the fences so URLs and short answers paste
+  // clean).
+  const fenced = body.match(/^```(?:\w+)?\n([\s\S]*?)\n```$/);
+  const clipboardPayload = fenced ? fenced[1].trim() : body;
+  return {
+    tab: s.tab,
+    title,
+    kind,
+    body,
+    clipboardPayload,
+    words,
+    wordBudget,
+  };
+}
+
+// ===== Renderer =========================================================
+
+const $ = (sel, root) => (root || document).querySelector(sel);
+const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+const elFields = $('#fields');
+const elSearch = $('#search');
+const elFunder = $('#funder-select');
+const elCount = $('#field-count');
+const elEmpty = $('#empty');
+
+let currentFunder = null;
+let currentSections = [];
+
+function populateFunderSelect() {
+  elFunder.innerHTML = '';
+  for (const f of FUNDERS) {
+    const opt = document.createElement('option');
+    opt.value = f.id;
+    opt.textContent = f.label;
+    elFunder.appendChild(opt);
+  }
+  elFunder.disabled = FUNDERS.length < 2;
+}
+
+function loadFunder(funder) {
+  currentFunder = funder;
+  const md = decodeBase64Utf8(funder.b64);
+  currentSections = parseMarkdown(md);
+  render();
+}
+
+function wcClass(s) {
+  if (!s.wordBudget) return '';
+  const ratio = s.words / s.wordBudget;
+  if (ratio > 1.05) return 'bad';
+  if (ratio > 0.95) return 'good';
+  if (ratio > 0.7) return 'good';
+  if (ratio < 0.3) return 'warn';
+  return '';
+}
+
+function render() {
+  const q = elSearch.value.trim().toLowerCase();
+  elFields.innerHTML = '';
+  let visible = 0;
+  let lastTab = null;
+  for (const s of currentSections) {
+    const matches = !q || (s.title + ' ' + s.body + ' ' + s.tab).toLowerCase().includes(q);
+    if (matches && s.tab !== lastTab && s.tab) {
+      const hdr = document.createElement('div');
+      hdr.className = 'section-header';
+      hdr.textContent = s.tab;
+      elFields.appendChild(hdr);
+      lastTab = s.tab;
+    }
+    const card = document.createElement('div');
+    card.className = 'field' + (matches ? '' : ' hidden');
+    if (matches) visible++;
+    const row = document.createElement('div');
+    row.className = 'field-row';
+    row.onclick = (e) => {
+      if (e.target.closest('.copy-btn')) return;
+      card.classList.toggle('expanded');
+    };
+    const title = document.createElement('div');
+    title.className = 'field-title';
+    title.textContent = s.title;
+    if (s.kind) {
+      const kindEl = document.createElement('span');
+      kindEl.className = 'kind';
+      kindEl.textContent = s.kind;
+      title.appendChild(kindEl);
+    }
+    const wc = document.createElement('div');
+    wc.className = 'field-wc ' + wcClass(s);
+    wc.textContent = s.wordBudget
+      ? `${s.words} / ${s.wordBudget}`
+      : `${s.words} w`;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = () => doCopy(btn, s.clipboardPayload);
+    row.appendChild(title);
+    row.appendChild(wc);
+    row.appendChild(btn);
+    const body = document.createElement('div');
+    body.className = 'field-body';
+    const pre = document.createElement('pre');
+    pre.textContent = s.body;
+    body.appendChild(pre);
+    card.appendChild(row);
+    card.appendChild(body);
+    elFields.appendChild(card);
+  }
+  elCount.textContent = `${visible} field${visible === 1 ? '' : 's'}`;
+  elEmpty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+async function doCopy(btn, text) {
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    ok = true;
+  } catch (e) {
+    // Fallback for older browsers / restricted contexts
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e2) {
+      ok = false;
+    }
+  }
+  showToast(ok ? `Copied ${text.length} chars` : 'Copy failed — select the text manually', !ok);
+  if (ok) {
+    btn.classList.add('copied');
+    btn.textContent = 'Copied';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = 'Copy';
+    }, 1400);
+  }
+}
+
+let toastTimer = null;
+function showToast(msg, isErr) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.toggle('err', !!isErr);
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+elSearch.addEventListener('input', render);
+elFunder.addEventListener('change', () => {
+  const f = FUNDERS.find((x) => x.id === elFunder.value);
+  if (f) loadFunder(f);
+});
+
+if (FUNDERS.length === 0) {
+  elFields.innerHTML = '<div class="empty">No funders embedded — re-run <code>node build.js</code> after dropping a form-answers.md file under proposals/.</div>';
+} else {
+  populateFunderSelect();
+  loadFunder(FUNDERS[0]);
+}
+</script>
+</body>
+</html>
