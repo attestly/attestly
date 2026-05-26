@@ -16,7 +16,7 @@
 //! # let ledger: Ledger = unimplemented!();
 //! # let org: OrgIdentity = unimplemented!();
 //!
-//! let adapter = TellaAdapter::new(ledger, org);
+//! let mut adapter = TellaAdapter::new(ledger, org);
 //! let upload = TellaUpload::builder()
 //!     .file_bytes(b"<encrypted media blob>".to_vec())
 //!     .metadata(serde_json::json!({"captured_at": "2026-06-01T10:23:11Z"}))
@@ -35,7 +35,7 @@ pub mod evidence;
 pub mod receipt;
 pub mod upload;
 
-pub use adapter::TellaAdapter;
+pub use adapter::{AdapterError, AdapterResult, LedgerLike, OrgIdentityLike, TellaAdapter};
 pub use evidence::FieldEvidenceEvent;
 pub use receipt::AttestlyReceipt;
 pub use upload::{TellaUpload, TellaUploadBuilder};

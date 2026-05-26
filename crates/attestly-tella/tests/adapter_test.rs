@@ -1,12 +1,31 @@
-//! End-to-end smoke tests for the attestly-tella adapter scaffold.
+//! End-to-end smoke tests for the attestly-tella adapter.
 //!
 //! These tests exercise the public API at the workspace level (rather
-//! than the internal unit-test surface inside each module). They are
-//! deliberately small in the scaffold; the OTF M1 deliverable expands
-//! the test surface to include real ledger interaction + verifier
-//! round-trip.
+//! than the internal unit-test surface inside each module). They use
+//! the real `attestly_core::Ledger` + `OrgIdentity` so the adapter is
+//! exercised through its production wiring path.
 
+use attestly_core::identity::OrgKey;
+use attestly_core::{Ledger, SystemKey};
 use attestly_tella::{AttestlyReceipt, FieldEvidenceEvent, TellaAdapter, TellaUpload};
+use tempfile::NamedTempFile;
+
+fn fresh_ledger() -> Ledger {
+    let key = SystemKey::generate("did:web:operator.example/ai-system/test");
+    let path = NamedTempFile::new()
+        .expect("tempfile create")
+        .into_temp_path();
+    let path_str = path
+        .to_str()
+        .expect("tempfile path is valid UTF-8")
+        .to_string();
+    let _ = path.keep().expect("tempfile keep");
+    Ledger::open(&path_str, key).expect("ledger open")
+}
+
+fn fresh_org() -> attestly_core::OrgIdentity {
+    OrgKey::generate("did:web:journalists.example", "ops-2026-05").identity
+}
 
 fn sample_upload(file_bytes: Vec<u8>, context: Option<&str>) -> TellaUpload {
     let mut b = TellaUpload::builder()
@@ -21,14 +40,15 @@ fn sample_upload(file_bytes: Vec<u8>, context: Option<&str>) -> TellaUpload {
 }
 
 #[test]
-fn end_to_end_smoke_scaffold() {
-    struct Stub;
-    let adapter = TellaAdapter::new(Stub, Stub);
+fn end_to_end_smoke() {
+    let mut adapter = TellaAdapter::new(fresh_ledger(), fresh_org());
     let upload = sample_upload(b"evidence-photo-blob".to_vec(), Some("protest-2026"));
     let receipt: AttestlyReceipt = adapter.attest(&upload).expect("attest should succeed");
     assert!(receipt.event_id.starts_with("attestly-tella-"));
     assert_eq!(receipt.upload_hash_hex.len(), 64);
     assert!(receipt.signed_checkpoint_ref.is_none());
+    assert_eq!(receipt.append_position, 1);
+    assert_eq!(receipt.org_did, "did:web:journalists.example");
 }
 
 #[test]
@@ -43,8 +63,7 @@ fn event_omits_raw_file_bytes() {
 
 #[test]
 fn receipt_serialises_to_compact_json() {
-    struct Stub;
-    let adapter = TellaAdapter::new(Stub, Stub);
+    let mut adapter = TellaAdapter::new(fresh_ledger(), fresh_org());
     let upload = sample_upload(b"data".to_vec(), None);
     let receipt = adapter.attest(&upload).unwrap();
     let s = serde_json::to_string(&receipt).unwrap();
