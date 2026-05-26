@@ -50,6 +50,14 @@ The McGovern Foundation tends to fund organisations rather than products. Attest
 
 Hook: *"Apache-2.0 in perpetuity. No commercial dependency. No customer-acquisition spend. The funding goes entirely to engineering, security review, and ecosystem adoption — not to capturing the market the public good serves."*
 
+### Arc 4 — Foundation primitive for the post-AI-fraud trust era
+
+The category broader than AI Act Article 12 is real: as generative AI makes synthetic documents, fake evidence, and manipulated audit trails trivial to produce, every regulated sector that depends on "single party produces and stores evidence about itself" inherits the same integrity gap that Article 12 names. Attestly is the foundational open primitive other workflows can adopt to close that gap, *without* itself becoming a "trust platform" (every existing player in that space — DocuSign, ID.me, Vanta, ChainIT, OneSpan, Trulioo — is a commercial SaaS with vendor lock-in).
+
+Hook: *"As AI-generated evidence becomes the default and not the exception, the integrity gap Article 12 names will recur in every regulated sector. Attestly is the open foundation other workflows can adopt — the primitive layer underneath the dozen commercial trust platforms that will inevitably build on top."*
+
+Why this is a McGovern-specific framing (and not a general grant framing): the McGovern Foundation funds *organisations* with mission-aligned, society-wide impact. The "foundational primitive other workflows adopt" framing emphasises Attestly's role as upstream public-good infrastructure rather than a competing market entrant. **Do not use this framing in NLnet/STF/OTF/ISF applications** — those funders evaluate on specific deliverable scope, and the broader narrative dilutes the focus they want.
+
 ---
 
 ## Required evidence to assemble before the cycle opens
