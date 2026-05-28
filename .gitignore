@@ -20,3 +20,8 @@ attestly-*.pub
 .env
 .env.*
 !.env.example
+
+# internal planning / scratch notes (not for public repo)
+TODO-*.md
+pre-flight-*.md
+.scratch/
